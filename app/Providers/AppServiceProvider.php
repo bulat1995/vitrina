@@ -3,9 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\ShopCategory;
 
-use App\Observers\ShopCategoryObserver;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        Paginator::useBootstrap();
 
     }
 
@@ -26,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        ShopCategory::observe(ShopCategoryObserver::class);
+
     }
 }

@@ -7,6 +7,14 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
+
+use App\Models\ShopCategory;
+use App\Models\Role;
+
+use App\Observers\ShopCategoryObserver;
+use App\Observers\RoleObserver;
+
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -27,6 +35,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Role::observe(RoleObserver::class);
+        ShopCategory::observe(ShopCategoryObserver::class);
     }
 }

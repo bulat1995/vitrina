@@ -2,9 +2,9 @@
 
 @section('title')
     @empty($item->id)
-    Добавление категории
+    {{__('adding')}}
     @else
-    Редактирование категории "{{ $item->name }}"
+    {{__('editing')}} "{{ $item->name }}"
     @endempty
 @endsection
 
@@ -12,9 +12,9 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
         @empty($item->id)
-            <li class="breadcrumb-item active" aria-current="page">Корневая категория</li>
+            <li class="breadcrumb-item active" aria-current="page">{{__('Root Category')}}</li>
         @else
-            <li class="breadcrumb-item"><a href="{{ route('admin.shop.categories.index') }}">Корневая категория</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.shop.categories.show') }}">{{__('Root Category')}}</a></li>
             @foreach($breadcrumb as $crumb)
                 @if($loop->last)
                     <li class="breadcrumb-item active">{{ $crumb->name }}</li>
@@ -51,11 +51,11 @@
                         @endforeach
                     @endif
                     <div class="form-group">
-                      <label for="name">Наименование категории</label>
+                      <label for="name">{{__('Category name')}}</label>
                       <input type="text" class="form-control" id="name"  placeholder="Компьютеры" name="name" value="{{old('name',$item->name)}}">
                     </div>
                     <div class="form-group">
-                      <label for="parent">Родительская категория</label>
+                      <label for="parent">{{__('Parent Category')}}</label>
                       <select class="form-control" id="parent" name="parent_id">
                           <option value="0">Корневая категория</option>
                           @foreach ($categories as $category)
@@ -64,13 +64,13 @@
                         </select>
                     </div>
                     <div class="form-group">
-                      <label for="logo">Логотип</label>
+                      <label for="logo">{{__('logo')}}</label>
                       <input type="file" class="form-control-file" id="logo"  name="logo" value="{{old('name',$item->name)}}">
                     <span style="color:#555">Формат файла: <i>gif, jpeg, jpg, bmp</i></span>
                     </div>
                     @if(!empty ($item->logoPath))
                         <div class="form-group">
-                          <label for="logo">Текущий логотип</label>
+                          <label for="logo">{{__('current logo')}}</label>
                           <br>
                               <img height="200"   align="center" src="{!! asset('storage/'.$item->logoPath) !!}">
                         </div>
@@ -78,11 +78,11 @@
                     <div class="form-group form-check pt-3">
                           <input type="hidden" class="form-check-input" name="is_public" value=0>
                           <input type="checkbox" class="form-check-input" id="is_public" name="is_public" @if(old('is_public',$item['is_public'])) checked @endif value="1">
-                          <label class="form-check-label" for="is_public" >Опубликовать</label>
+                          <label class="form-check-label" for="is_public" >{{__('publish')}}</label>
                     </div>
                     <div class="form-group mt-2">
                         @if($item->exists)
-                                <input class="btn btn-outline-success float-right" value="Редактировать" type="submit">
+                                <input class="btn btn-outline-success float-right" value="{{__('edit')}}" type="submit">
                             @else
                                 <input class="btn btn-outline-primary float-right" value="Создать" type="submit">
                             @endif
@@ -96,11 +96,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="name">Создано:</label>
+                        <label for="name">{{__('created')}}:</label>
                         <input disabled type="text" class="form-control" value="{{ old('created_at',$item->created_at) }}">
                     </div>
                     <div class="form-group">
-                        <label for="name">Отредактировано:</label>
+                        <label for="name">{{__('edited')}}:</label>
                         <input disabled type="text" class="form-control"  value="{{ old('updated_at',$item->updated_at) }}">
                     </div>
                 </div>
@@ -109,7 +109,7 @@
             <div class="card mt-1">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="name">Удалено:</label>
+                        <label for="name">{{__('deleted')}}:</label>
                         <input disabled type="text" class="form-control"  value="{{ old('deleted_at',$item->deleted_at) }}">
                     </div>
                     <form action={{ route('admin.shop.categories.restore',$item->id) }} method="POST">
@@ -118,10 +118,10 @@
                         <div class="form-group  form-check ">
                             <input type="hidden" name="withDescedents" value=0>
                             <input type="checkbox" class="form-check-input"  value=1 name="withDescedents" id="restoreWithDescedents">
-                            <label for="restoreWithDescedents"> Восстановить с потомками</label>
+                            <label for="restoreWithDescedents"> {{__('restore')}} {{__('withDescedents')}}</label>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class=" form-control btn btn-outline-dark"  name="restore" value="Восстановить">
+                            <input type="submit" class=" form-control btn btn-outline-dark"  name="restore" value="{{__('restore')}}">
                         </div>
                     </form>
                 </div>
@@ -134,20 +134,20 @@
             <div class="card mt-1">
                 <div class="card-body">
                         <div class="form-group">
-                            <font size=3>Удаление:</font>
+                            <font size=3>{{__('Deleting')}}:</font>
                         </div>
                         <div class="form-group  form-check ">
                             <input type="hidden" name="soft" value=0>
                             <input type="checkbox" class="form-check-input"  name="soft" value=1 id="softDelete">
-                            <label for="softDelete">мягкое удаление</label>
+                            <label for="softDelete">{{__('Soft Delete')}}</label>
                         </div>
                         <div class="form-group  form-check ">
                             <input type="hidden" name="withDescedents" value=0>
                             <input type="checkbox" class="form-check-input"  value=1 name="withDescedents" id="deleteWithDescedents">
-                            <label for="deleteWithDescedents"> вместе с потомками</label>
+                            <label for="deleteWithDescedents"> {{__('With Descedents')}}</label>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-outline-danger float-right" name="delete" value="Удалить">
+                            <input type="submit" class="btn btn-outline-danger float-right" name="delete" value="{{__('delete')}}">
                         </div>
                 </div>
             </div>

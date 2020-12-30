@@ -14,9 +14,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(['prefix'=>'/admin/','namespace'=>'App\Http\Controllers\Shop\Admin'],function(){
-    Route::resource('category','ShopCategoryAdminController')->names('admin.shop.categories');
-    Route::patch('category/{id}/restore',[App\Http\Controllers\Shop\Admin\ShopCategoryAdminController::class,'restore'])->where('id', '[0-9]+')->name('admin.shop.categories.restore');
+
+Route::group(['middleware' => ['auth','role:adminPanel'],'prefix'=>'/admin/','namespace'=>'App\Http\Controllers\Admin'],function(){
+    //Категории
+    Route::resource('categories','ShopCategoryAdminController')->
+            except(['show','index'])->
+            names('admin.shop.categories');
+    //Восстановление разделов
+    Route::patch('categories/{id}/restore',[App\Http\Controllers\Admin\ShopCategoryAdminController::class,'restore'])->where('id', '[0-9]+')->name('admin.shop.categories.restore');
+    //Просмотр разделов
+    Route::get('categories/{id?}',[App\Http\Controllers\Admin\ShopCategoryAdminController::class,'show'])->where('id','[0-9]+')->name('admin.shop.categories.show');
+
+
+    //Роли пользователей
+    Route::resource('roles','RoleAdminController')->names('admin.roles');
+    //права доступа
+    Route::resource('permissions','PermissionAdminController')->except(['show'])->names('admin.permissions');
+
 });
 
 Auth::routes();

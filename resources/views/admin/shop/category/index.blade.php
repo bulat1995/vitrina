@@ -16,9 +16,9 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
             @empty($item->id)
-                <li class="breadcrumb-item active" aria-current="page">Корневая категория</li>
+                <li class="breadcrumb-item active" aria-current="page">{{__('Root Category')}}</li>
             @else
-                <li class="breadcrumb-item"><a href="{{ route('admin.shop.categories.index') }}">Корневая категория</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.shop.categories.show') }}">Корневая категория</a></li>
                 @foreach($breadcrumb as $crumb)
                     @if($loop->last)
                         <li class="breadcrumb-item active">{{ $crumb->name }}</li>
@@ -45,11 +45,11 @@
                 <div class="col-md-4">
                     @if($item->_lvl!=0)
                         <a href="{{ route('admin.shop.categories.edit',$item->id) }}">
-                            <button type="button" class="btn btn-outline-success">Редактировать</button>
+                            <button type="button" class="btn btn-outline-success">{{__('edit')}}</button>
                         </a>
                     @endif
                     <a href="{{ route('admin.shop.categories.create',$parent_id??0) }}">
-                        <button type="button" class="btn btn-outline-primary float-right mr-3">Создать категорию</button>
+                        <button type="button" class="btn btn-outline-primary float-right mr-3">{{__('add')}}</button>
                     </a>
                 </div>
           </div>
@@ -74,7 +74,7 @@
                           </td>
                           <td align="right">
                               <a href="{{ route('admin.shop.categories.edit',$item->id) }}" class="btn btn-outline-success">
-                                  Редактировать
+                                  {{__('edit')}}
                               </a>
                           </td>
                       </tr>

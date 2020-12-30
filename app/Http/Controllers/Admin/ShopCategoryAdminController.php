@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Shop\Admin;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
@@ -19,23 +19,36 @@ class ShopCategoryAdminController extends Controller
 {
     private $repository;
 
-    public function __construct()
+    public function __construct(Request $request,Request $er)
     {
         $this->repository=app(ShopCategoryRepository::class);
-        $this->middleware('auth');
     }
 
     /**
-     * Вывод начальной страницы категорий.
+     * Отображение категории с дочерними элементами
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function show($id=0)
     {
-        $item=(object)['name'=>'Корневая категория','_lft'=>0,'_rgt'=>$this->repository->getRightMax(),'_lvl'=>0];
+        if($id==0)
+        {
+            $item=(object)['name'=>'Корневая категория','_lft'=>0,'_rgt'=>$this->repository->getRightMax(),'_lvl'=>0];
+        }
+        else{
+            $item=$this->repository->getNodeById($id);
+        }
+
+        if(empty($item)){
+            abort(404);
+        }
+        $breadcrumb=$this->repository->getTreeFromBottomByNode($item);
         $items=$this->repository->getPageByItem($item);
-        return view('admin.shop.category.index',compact('item','items'));
+        $parent_id=$id;
+        return view('admin.shop.category.index',compact('item','items','breadcrumb','parent_id'));
     }
+
 
 
     /**
@@ -49,8 +62,8 @@ class ShopCategoryAdminController extends Controller
         $item=new ShopCategory();
         $categories=$this->repository->getCategoryForComboBox();
         return view('admin.shop.category.form',
-                    compact('item','categories','parent_id')
-                );
+            compact('item','categories','parent_id')
+        );
     }
 
     /**
@@ -80,28 +93,10 @@ class ShopCategoryAdminController extends Controller
                     ->withErrors(['msg'=>'Ошибка сохранения'])
                     ->withInput();
         }
-        dd($redirect);
         return $redirect;
     }
 
-    /**
-     * Отображение категории с дочерними элементами
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $item=$this->repository->getNodeById($id);
-        if(empty($item)){
-            abort(404);
-        }
 
-        $breadcrumb=$this->repository->getTreeFromBottomByNode($item);
-        $items=$this->repository->getPageByItem($item);
-        $parent_id=$id;
-        return view('admin.shop.category.index',compact('item','items','breadcrumb','parent_id'));
-    }
 
     /**
      * Редактирование категории
@@ -133,10 +128,8 @@ class ShopCategoryAdminController extends Controller
         $data=$request->all();
 
         $item=$this->repository->getNodeById($id);
-
         $file=$request->file('logo');
         $item->logoPath=$file->store('category','public');
-
         $item->fill($data)->save();
         if($item)
         {

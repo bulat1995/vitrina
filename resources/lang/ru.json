@@ -1,0 +1,48 @@
+{
+    "Register":"Регистрация",
+    "Login":"Авторизация",
+    "Logout":"Выйти",
+
+    "Remember Me":"Запомнить меня",
+    "Enter":"Войти",
+    "Forgot Your Password?":"Забыл пароль?",
+
+    "Reset Password":"Сброс пароля",
+    "Send Password Reset Link":"Отправить ссылку сброса пароля на email",
+
+
+    "Name":"Имя пользователя",
+    "E-Mail Address":"Email адрес",
+    "Password":"Пароль",
+    "Confirm Password":"Подтверждение пароля",
+
+
+    "categories":"Категории",
+    "Category name":"Наименование категории",
+    "Root Category":"Корневая категория",
+    "Parent Category":"Родительская категория",
+    "logo":"Логотип",
+    "publish":"Опубликовать",
+    "Soft Delete":"мягкое удаление",
+    "With Descedents":" с потомками",
+
+
+    "Roles":"Роли",
+    "Role name":"Наименование роли",
+    "Slug role":"Идентификатор роли",
+
+    "permissions":"Ключи доступа",
+    "Permission name":"Наименование ключа доступа",
+    "Permission slug":"Идентификатор ключа доступа",
+
+    "adding":" Добавление",
+    "created":" Создано",
+    "editing":" Редактирование",
+    "edited":" Отредактировано",
+    "Deleting":" Удаление",
+
+    "edit":"Редактировать",
+    "add":"Добавить",
+    "create":"Создать",
+    "delete":"Удалить"
+}
