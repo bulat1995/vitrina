@@ -81,7 +81,7 @@ class RoleAdminController extends Controller
     public function edit($id)
     {
         $role=Role::findOrFail($id);
-        $permissions=$this->permissionRepository->getAllPermissionWithMarks($role->id);
+        $permissions=$this->permissionRepository->getAllPermissionWithMarks($id);
         return view('admin.role.form',compact('role','permissions'));
     }
 
@@ -96,8 +96,8 @@ class RoleAdminController extends Controller
     {
         $role=Role::findOrFail($id);
         $data=$request->all();
-
-        $role->fill($data)->save();
+        $role->fill($data);
+        $role->save();
         if($role)
         {
             return redirect()->route('admin.roles.index')->with([

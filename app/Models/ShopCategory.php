@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\ShopParameter;
 
 class ShopCategory extends Model
 {
@@ -14,6 +15,17 @@ class ShopCategory extends Model
         'name',
         'parent_id',
         'is_public',
-        'logoPath'
+        'parametersId',
+        'logoPath',
     ];
+
+    public function parameters()
+    {
+        return $this->belongsToMany('App\Models\ShopParameter','shop_category_shop_parameter','category_id','parameter_id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(ShopProduct::class,'category_id');
+    }
 }

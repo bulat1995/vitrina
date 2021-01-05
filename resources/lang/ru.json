@@ -35,6 +35,15 @@
     "Permission name":"Наименование ключа доступа",
     "Permission slug":"Идентификатор ключа доступа",
 
+
+    "Parameter name":"Наименование параметра",
+    "Parameter type":"Тип параметра",
+    "shop.parameters":"Параметры товаров",
+    "Parameter regular":"Регулярное выражение для проверки параметра",
+
+
+    "Products":"Товары",
+
     "adding":" Добавление",
     "created":" Создано",
     "editing":" Редактирование",

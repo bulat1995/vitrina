@@ -20,7 +20,7 @@ class PermissionAdminController extends Controller
      */
     public function index()
     {
-        $items=Permission::orderBy('slug','ASC')->toBase()->paginate(6);
+        $items=Permission::orderBy('name','ASC')->toBase()->get();
         return view('admin.permission.index',compact('items'));
     }
 
@@ -70,6 +70,9 @@ class PermissionAdminController extends Controller
     public function edit($id)
     {
         $permission=Permission::findOrFail($id);
+        if(!$permission->changeable){
+            abort(403,'system value ');
+        }
         return view('admin.permission.form',compact('permission'));
     }
 
@@ -83,6 +86,9 @@ class PermissionAdminController extends Controller
     public function update(PermissionRequest $request, $id)
     {
         $permission=Permission::findOrFail($id);
+        if(!$permission->changeable){
+            abort(403,'system value ');
+        }
         $data=$request->input();
         $permission->fill($data);
         if($permission->save())
@@ -108,7 +114,11 @@ class PermissionAdminController extends Controller
     public function destroy($id)
     {
         $permission=Permission::findOrFail($id);
-        $permission->delete();
-        return redirect()->route('admin.permissions.index');
+        if(!$permission->changeable){
+            redirect()->route('admin.permissions.index')->withErrors(['msg'=>'Невозможно удалить данный ключ']);
+        }
+        if($permission->delete()){
+            return redirect()->route('admin.permissions.index');
+        }
     }
 }

@@ -35,25 +35,48 @@ class ShopCategoryRepository extends CoreRepository
                 ->get();
     }
 
+
     /*
-        Постраничный вывод категории
+         вывод категории с товаром
     */
-    public function getPageByItem($node,$pageLimit=10)
+    /*
+        Возврат одного узла по идентификатору
+    */
+    public function getNodeByIdWithProducts($id)
     {
-        if(!empty($node))
+        return $this->startConditions()->with(['products'])->find($id);
+    }
+
+    /*
+        Формирование запроса для формы редактирования
+    */
+    public function getNodeForForm($parent_id=0)
+    {
+        if($parent_id==0)
         {
-            $columns=['id','name','_lft','_rgt','logoPath'];
-            return $this->startConditions()
-                    ->select($columns)
-                    ->where('_lft','>=',$node->_lft)
-                    ->orderBy('_lft','ASC')
-                    ->where('_rgt','<=',$node->_rgt)
-                    ->where('_lvl','=',$node->_lvl+1)->toBase()->get();
-                    //->paginate($pageLimit);
+            $result=$this->startConditions()->
+                orderBy('_lft','ASC')->
+                get();
         }
         else{
-            return false;
+            $columns=[
+                \DB::raw('shop_2.*'),
+                \DB::raw('(shop_categories._lft<=shop_2._lft AND shop_categories._rgt >=shop_2._rgt) as  hide'),
+                \DB::raw('(shop_2._lft<=shop_categories._lft) as  tree'),
+            ];
+
+            $result=$this->startConditions()->
+            select($columns)->
+            leftJoin('shop_categories as shop_2',function($join){
+                $join->on('shop_2.id','>',\DB::raw('0'));
+            })->
+            where('shop_categories.id',$parent_id)->
+            orderBy('shop_2._lft','ASC')->
+            //toBase()->
+            get();
         }
+
+        return  $result;
     }
 
     /*
@@ -71,4 +94,56 @@ class ShopCategoryRepository extends CoreRepository
         ->toBase()
         ->get();
     }
+
+
+    /*
+        Вывод дерева для ShopCategoryController::show()
+    */
+    public function getNodeWithTreeAndChilds($parent_id)
+    {
+        //Корневая категория
+        if($parent_id==0){
+            $result=$this->startConditions()->
+            select(['id','name','logoPath','_lvl',\DB::raw('0 as tree')])->
+            toBase()->
+            orderBy('_lft','ASC')->
+            where('shop_categories._lvl',1)->
+            get();
+        }
+        //Дочерняя категория
+        else{
+            $columns=[
+                \DB::raw('shop_categories_2.id'),
+                \DB::raw('shop_categories_2.name'),
+                \DB::raw('shop_categories_2._lvl'),
+                \DB::raw('shop_categories_2.logoPath'),
+                \DB::raw('shop_categories_2._lft<=shop_categories._lft as tree')
+            ];
+            $result=$this->startConditions()->
+            select($columns)->
+            leftJoin(\DB::raw('shop_categories as shop_categories_2'),function($join){
+                $join->on(\DB::raw('shop_categories._lvl+1'),'>=',\DB::raw('shop_categories_2._lvl'));
+                $join->where(function ($query){
+                    $query->where(function($query){
+                        $query->where(\DB::raw('shop_categories._lft'),'>=',\DB::raw('shop_categories_2._lft'));
+                        $query->where(\DB::raw('shop_categories._rgt'),'<',\DB::raw('shop_categories_2._rgt'));
+                    });
+                    $query->orWhere(function($query){
+                        $query->where(\DB::raw('shop_categories._lft'),'<=',\DB::raw('shop_categories_2._lft'));
+                        $query->where(\DB::raw('shop_categories._rgt'),'>=',\DB::raw('shop_categories_2._rgt'));
+                    });
+                });
+            })->
+            toBase()->
+            orderBy('shop_categories_2._lft','ASC')->
+            where('shop_categories.id',$parent_id)->
+            get();
+        }
+        return $result;
+    }
+
+
+
+
+
 }

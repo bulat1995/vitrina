@@ -1,4 +1,7 @@
 <?php
+/*
+    Контроллер работы с категориями товаров
+*/
 
 namespace App\Http\Controllers\Admin;
 
@@ -6,7 +9,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Models\ShopCategory;
+use App\Models\ShopProduct;
 use App\Http\Repositories\ShopCategoryRepository;
+use App\Http\Repositories\ShopParameterRepository;
+
 use App\Http\Requests\ShopCategoryRequest;
 use App\Http\Requests\ShopCategoryDeleteRequest;
 use App\Http\Requests\ShopCategoryRestoreRequest;
@@ -18,10 +24,12 @@ use Database\Seeders\ShopCategorySeeder;
 class ShopCategoryAdminController extends Controller
 {
     private $repository;
+    private $paramRepository;
 
     public function __construct(Request $request,Request $er)
     {
         $this->repository=app(ShopCategoryRepository::class);
+        $this->paramRepository=app(ShopParameterRepository::class);
     }
 
     /**
@@ -32,21 +40,31 @@ class ShopCategoryAdminController extends Controller
      */
     public function show($id=0)
     {
-        if($id==0)
-        {
-            $item=(object)['name'=>'Корневая категория','_lft'=>0,'_rgt'=>$this->repository->getRightMax(),'_lvl'=>0];
-        }
-        else{
-            $item=$this->repository->getNodeById($id);
+        if($id==0){
+            $item=(object)['name'=>'Корневая категория','_lvl'=>0];
         }
 
-        if(empty($item)){
-            abort(404);
+        $treeView=$this->repository->getNodeWithTreeAndChilds($id);
+        $breadcrumb=[];
+        $items=[];
+        foreach($treeView as $entity){
+            if($entity->id==$id){
+                $item=$entity;
+            }
+            if($entity->tree==1){
+                $breadcrumb[]=$entity;
+            }
+            else{
+                $items[]=$entity;
+            }
         }
-        $breadcrumb=$this->repository->getTreeFromBottomByNode($item);
-        $items=$this->repository->getPageByItem($item);
-        $parent_id=$id;
-        return view('admin.shop.category.index',compact('item','items','breadcrumb','parent_id'));
+
+        $products=ShopProduct::where('category_id',$id)->
+                limit(10)->get();
+
+        return view('admin.shop.category.index',
+            compact('item','items','breadcrumb','products')
+        );
     }
 
 
@@ -59,10 +77,22 @@ class ShopCategoryAdminController extends Controller
      */
     public function create($parent_id=0)
     {
+        $tree=$this->repository->getNodeForForm(0);
         $item=new ShopCategory();
-        $categories=$this->repository->getCategoryForComboBox();
+        $breadcrumb=[];
+        $categories=[];
+        foreach($tree as $entity)
+        {
+            if($entity->tree){
+                $breadcrumb[]=$entity;
+            }
+            if($entity->hide!=1){
+                $categories[]=$entity;
+            }
+        }
+        $params=$this->paramRepository->getParametersWithMarks();
         return view('admin.shop.category.form',
-            compact('item','categories','parent_id')
+            compact('item','categories','parent_id','params')
         );
     }
 
@@ -76,44 +106,49 @@ class ShopCategoryAdminController extends Controller
     {
         $item=new ShopCategory();
         $data=$request->input();
-
-        $file=$request->file('logo');
-        $item->logoPath=$file->store('category','public');
-
         $item->fill($data)->save();
-        $redirect=redirect();
         if($item)
         {
-            $redirect->route('admin.shop.categories.show',$item->id)
+            return redirect()->route('admin.shop.categories.show',$item->id)
                     ->with(['success'=>'Создана новая категория']);
         }
         else{
-            $redirect
+            return redirect()
                     ->back()
                     ->withErrors(['msg'=>'Ошибка сохранения'])
                     ->withInput();
         }
-        return $redirect;
+
     }
-
-
-
     /**
      * Редактирование категории
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($parent_id)
     {
-        $item=$this->repository->getNodeByIdWithTrashed($id);
+        $tree=$this->repository->getNodeForForm($parent_id);
+        $item=[];
+        $breadcrumb=[];
+        $categories=[];
+        foreach($tree as $entity)
+        {
+            if($entity->tree){
+                $breadcrumb[]=$entity;
+            }
+            if($entity->hide!=1){
+                $categories[]=$entity;
+            }
+            if($entity->id==$parent_id){
+                $item=$entity;
+            }
+        }
         if(empty($item)){
             abort(404);
         }
-        $breadcrumb=$this->repository->getTreeFromBottomByNode($item);
-        $categories=$this->repository->getCategoryForComboBox($item);
-        $parent_id=$id;
-        return view('admin.shop.category.form',compact('item','categories','breadcrumb','parent_id'));
+        $params=$this->paramRepository->getParametersWithMarks($parent_id);
+        return view('admin.shop.category.form',compact('item','categories','breadcrumb','parent_id','params'));
     }
 
     /**
@@ -126,11 +161,9 @@ class ShopCategoryAdminController extends Controller
     public function update(ShopCategoryRequest $request, $id)
     {
         $data=$request->all();
-
         $item=$this->repository->getNodeById($id);
-        $file=$request->file('logo');
-        $item->logoPath=$file->store('category','public');
         $item->fill($data)->save();
+
         if($item)
         {
             return redirect()
@@ -153,14 +186,15 @@ class ShopCategoryAdminController extends Controller
      */
     public function destroy(ShopCategoryDeleteRequest $request,$id)
     {
-        $node=$this->repository->getNodeById($id);
-        if(empty($item)){
+        $node=$this->repository->getNodeByIdWithTrashed($id);
+        if(empty($node)){
             abort(404);
         }
         //Мягкое удаление
         $soft=(bool)$request->input('soft');
         //Удаление с потомками
         $withDescedents=(bool)$request->input('withDescedents');
+
         if($withDescedents){
             if($soft){
                 $this->repository->softDelete($node);
@@ -182,7 +216,7 @@ class ShopCategoryAdminController extends Controller
         elseif($node->parent_id!==null)
             return redirect()->route('admin.shop.categories.show',$node->parent_id);
         else
-            return redirect()->route('admin.shop.categories.index');
+            return redirect()->route('admin.shop.categories.show');
     }
 
     /*
@@ -191,10 +225,9 @@ class ShopCategoryAdminController extends Controller
     public function restore(ShopCategoryRestoreRequest $request,$id)
     {
         $node=$this->repository->getNodeByIdWithTrashed($id);
-        if(empty($item)){
+        if(empty($node)){
             abort(404);
         }
-
         $withDescedents=(bool)$request->input('withDescedents');
         if($withDescedents){
             $result=$this->repository->restore($node);

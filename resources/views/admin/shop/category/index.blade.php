@@ -61,19 +61,18 @@
             @else
             <table class="table mt-4">
               <tbody>
-                  @foreach ($items as $item)
+                  @foreach ($items as $itemLoc)
                       <tr>
                           <th scope="row" width="60">
-                              @if(!empty ($item->logoPath))
-                                  <img height="40" align="center" src="{!! asset('storage/'.$item->logoPath) !!}">
+                              @if(!empty ($itemLoc->logoPath))
+                                  <img height="40" align="center" src="{!! asset('storage/'.$itemLoc->logoPath) !!}">
                               @endif
                           </th>
                           <td>
-                              <h5 class="card-title"><a href="{{ route('admin.shop.categories.show',$item->id) }}">{{ $item->name}}</a></h5>
-                              <span style="color:#999">Устройств: {{ ($item->_rgt - $item->_lft -1)/2}}</span>
+                              <h5 class="card-title"><a href="{{ route('admin.shop.categories.show',$itemLoc->id) }}">{{ $itemLoc->name}}</a></h5>
                           </td>
                           <td align="right">
-                              <a href="{{ route('admin.shop.categories.edit',$item->id) }}" class="btn btn-outline-success">
+                              <a href="{{ route('admin.shop.categories.edit',$itemLoc->id) }}" class="btn btn-outline-success">
                                   {{__('edit')}}
                               </a>
                           </td>
@@ -81,6 +80,56 @@
                   @endforeach
             </table>
             @endempty
+
+            <div class="row">
+                <div class="col-md-8">
+                    <font size=4 class="pl-4">
+                    @empty($item->id)
+                        Товары
+                    @else
+                        @if(!empty ($item->logoPath))
+                            <img height="40" align="center" src="{!! asset('storage/'.$item->logoPath) !!}">
+                        @endif
+                         Товары: [{{ $item->name }}]
+                    @endempty
+                </font>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ route('admin.shop.products.create',$parent_id??0) }}">
+                    <button type="button" class="btn btn-outline-primary float-right mr-3">{{__('addProduct')}}</button>
+                </a>
+            </div>
+        </div>
+
+            @if(!empty($products))
+
+
+            <table class="table mt-4">
+                <tbody>
+                    @foreach ($products as $product)
+                        <tr>
+                            <th scope="row" width="60">
+                                @if(!empty ($product->logoPath))
+                                    <img height="40" align="center" src="{!! asset('storage/'.$product->logoPath) !!}">
+                                @endif
+                            </th>
+                            <td>
+                                <h5 class="card-title"><a href="{{ route('admin.shop.products.show',$product->id) }}">{{ $product->name}}</a></h5>
+                            </td>
+                            <td align="right">
+                                <a href="{{ route('admin.shop.products.edit',$product->id) }}" class="btn btn-outline-success">
+                                    {{__('edit')}}
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+
+            @endif
         </div>
     </div>
+
+
+
+
 @endsection

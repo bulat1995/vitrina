@@ -47,6 +47,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.permissions.index') }}">{{__('permissions')}}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.shop.parameters.index') }}">{{__('shop.parameters')}}</a>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))

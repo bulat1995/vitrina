@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePermissionsTable extends Migration
+class CreateShopParametersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('shop_parameters', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
-            $table->string('action_name');
-            $table->string('slug');
-            $table->boolean('changeable')->default(1);
-            $table->timestamps();
+            $table->string('inputType');
+            $table->string('regular');
+            $table->boolean('required')->default(1);
         });
     }
 
@@ -30,6 +29,6 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('shop_parameters');
     }
 }

@@ -36,7 +36,7 @@ trait NestedSetRepository
     */
     public function getRightMax()
     {
-        return $this->startConditions()->max($this->rgt)??0;
+        return $this->startConditions()->withTrashed()->max($this->rgt)??0;
     }
 
     /*
@@ -50,7 +50,7 @@ trait NestedSetRepository
         //Сдвиг непричастных
         $result=$this->startConditions()
             ->where($this->lft,'>',$startPosition);
-        $result->update([
+        $result->withTrashed()->update([
             $this->lft=>\DB::raw("`$this->lft`+$shift"),
             $this->rgt=>\DB::raw("`$this->rgt`+$shift"),
         ]);
@@ -58,7 +58,7 @@ trait NestedSetRepository
         $result=$this->startConditions()
             ->where($this->lft,'<',$startPosition+1)
             ->where($this->rgt,'>',$startPosition);
-        $result->update([
+        $result->withTrashed()->update([
             $this->rgt=>\DB::raw("`$this->rgt`+$shift"),
         ]);
         return true;
@@ -200,6 +200,7 @@ trait NestedSetRepository
             ->where($this->rgt,'<=',$nodePlace->{$this->rgt})
             ->where($this->lvl,'=',$nodePlace->{$this->lvl}+1)
             ->orderBy('name','ASC')
+            ->withTrashed()
             ->limit('1')->toBase()
             ->select(['_lft'])->get();
 

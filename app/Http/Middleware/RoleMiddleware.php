@@ -16,14 +16,17 @@ class RoleMiddleware
      public function handle(Request $request, Closure $next,$role)
      {
         if(!auth()->user()->hasRole($role)) {
-            abort(403);
+        //    abort(403);
         }
+
+        $pattern=array('/store/','/update/','/index/');
+        $replacement=array('create','edit','show');
+
         //текущий метод
-        $currentAction=$request->route()->getName();
-        
+        $currentAction=\preg_replace($pattern,$replacement,$request->route()->getName());
+
         if($currentAction !== null && !auth()->user()->can($currentAction)) {
-            dd($currentAction);
-            abort(403);
+            abort(403,'Права доступа:'.$currentAction);
         }
         return $next($request);
      }

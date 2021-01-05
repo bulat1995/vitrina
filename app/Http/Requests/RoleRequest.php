@@ -27,7 +27,7 @@ class RoleRequest extends FormRequest
         return [
             'name'=>'required|min:2',
             'slug'=>['required','min:3',Rule::unique('roles')->ignore($this->route('role'))],
-            'permissions_id'=>'required|exists:permissions,id'
+            'permissionsId'=>'required|exists:permissions,id'
         ];
     }
 
@@ -37,8 +37,8 @@ class RoleRequest extends FormRequest
                 'name.required'=>'Поле ":attribute" обязательно для заполнения',
                 'slug.required'=>'Поле ":attribute" обязательно для заполнения',
                 'slug.unique'=>'Поле ":attribute" с таким значением уже существует',
-                'permissions_id.required'=>'Поле ":attribute" обязательно для заполнения',
-                'permissions_id.exists'=>'Значения поля ":attribute" должны существовать в системе',
+                'permissionsId.required'=>'Поле ":attribute" обязательно для заполнения',
+                'permissionsId.exists'=>'Значения поля ":attribute" должны существовать в системе',
         ];
     }
 
@@ -47,7 +47,7 @@ class RoleRequest extends FormRequest
         return [
             'name'=>'Наименование роли',
             'slug'=>'Идентификатор роли',
-            'permissions_id'=>'Ключи доступа'
+            'permissionsId'=>'Ключи доступа'
         ];
     }
 }

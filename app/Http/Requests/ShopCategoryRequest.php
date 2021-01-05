@@ -27,7 +27,9 @@ class ShopCategoryRequest extends FormRequest
             'name'=>'required|min:2',
             'parent_id'=>'required|min:0',
             'is_public'=>'boolean',
+            'parametersId'=>'exists:shop_parameters,id',
             'logo'=>'image|mimes:jpeg,png,gif,jpg,bmp|max:4096'
+
         ];
     }
 
@@ -47,6 +49,8 @@ class ShopCategoryRequest extends FormRequest
         return [
             'name' => 'Наименование категории',
             'parent' => 'Родитель',
+            'logo'=>'Логотип',
+            'parent_id'=>'Категория '
         ];
     }
 }

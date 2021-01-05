@@ -7,67 +7,51 @@ use App\Models\Role;
 class RoleObserver
 {
 
+    /**
+     * Обработка перед созданием
+     *
+     * @param  \App\Models\Role  $role
+     * @return void
+     */
     public function creating(Role $role)
     {
-        unset($role->permissions_id);
+        unset($role->permissionsId);
     }
 
     /**
-     * Handle the Role "created" event.
+     * обработка после создания
      *
      * @param  \App\Models\Role  $role
      * @return void
      */
     public function created(Role $role)
     {
-        $data=request()->input();
-        $role->permissions()->attach($data['permissions_id']);
+        $role=$this->refreshPermissions($role);
     }
 
+
     /**
-     * Handle the Role "updated" event.
+     * обработка перед обновлением
      *
      * @param  \App\Models\Role  $role
      * @return void
      */
     public function updating(Role $role)
     {
-        $role->permissions()->detach();
-        $data=request()->input();
-        $role->permissions()->attach($role->permissions_id);
-        unset($role->permissions_id);
+        $role=$this->refreshPermissions($role);
     }
 
-    /**
-     * Handle the Role "deleted" event.
-     *
-     * @param  \App\Models\Role  $role
-     * @return void
-     */
-    public function deleted(Role $role)
+    /*
+        Обновление ключей доступа роли
+    */
+    private function refreshPermissions(Role $role)
     {
-        //
-    }
-
-    /**
-     * Handle the Role "restored" event.
-     *
-     * @param  \App\Models\Role  $role
-     * @return void
-     */
-    public function restored(Role $role)
-    {
-        //
-    }
-
-    /**
-     * Handle the Role "force deleted" event.
-     *
-     * @param  \App\Models\Role  $role
-     * @return void
-     */
-    public function forceDeleted(Role $role)
-    {
-        //
+        unset($role->permissionsId);
+        $permissions=request()->route()->permissionsId;
+        if(!empty($role->id)){
+            $role->permissions()->detach();
+            $role->permissions()->attach($permissions);
+        }
+        return $role;
     }
 }

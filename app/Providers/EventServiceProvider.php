@@ -9,9 +9,11 @@ use Illuminate\Support\Facades\Event;
 
 
 use App\Models\ShopCategory;
+use App\Models\ShopProduct;
 use App\Models\Role;
 
 use App\Observers\ShopCategoryObserver;
+use App\Observers\ShopProductObserver;
 use App\Observers\RoleObserver;
 
 
@@ -37,5 +39,6 @@ class EventServiceProvider extends ServiceProvider
     {
         Role::observe(RoleObserver::class);
         ShopCategory::observe(ShopCategoryObserver::class);
+        ShopProduct::observe(ShopProductObserver::class);
     }
 }

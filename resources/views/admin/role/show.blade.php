@@ -27,25 +27,26 @@
                 </div>
           </div>
 
-          <p>
-  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Ключи доступа: [{{ count($role->permissions) }}]
-  </a>
-</p>
-<div class="collapse" id="collapseExample">
-  <div class="card card-body">
-      <table class="table mt-4">
-        <tbody>
-            @foreach ($role->permissions as $permission)
-                <tr>
-                    <td>
-                        <a href="{{ route('admin.permissions.edit',$permission->id) }}">{{ $permission->name}}</a>
-                    </td>
-                </tr>
-            @endforeach
-      </table>
-   </div>
-</div>
+
+
+          <table class="table">
+          @php $lastName=''; @endphp
+          @foreach ($role->permissions as $permission)
+              @php
+                  if($permission->name !=$lastName && $lastName!=''){
+                      echo '</tr>';
+                  }
+                  if($permission->name !=$lastName ){
+                      $lastName=$permission->name;
+                      echo '<tr><th>'.$permission->name.'</th>';
+                  }
+              @endphp
+              <td>
+                 {{ $permission->action_name }}
+              </td>
+          @endforeach
+          </table>
+
 
           <h5 class="pl-4 mt-5">Пользователи с данной ролью: [{{ count($role->users) }}]</h5>
           <table class="table mt-4">

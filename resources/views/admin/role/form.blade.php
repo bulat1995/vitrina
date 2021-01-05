@@ -50,13 +50,26 @@
                     </div>
                     <div class="form-group">
                       <label for="parent">{{__('permissions')}}</label>
-                        @foreach ($permissions as $permission)
-                         <div class="form-group form-check">
-                              <input type="checkbox" id="permissions_id[]{{ $permission->id }}"  name="permissions_id[]"  value="{{ $permission->id }}" @if($permission->has==1) checked="true" @endif >
-                              <label for="permissions_id[]{{ $permission->id }}">{{ $permission->name }}</label>
-                          </div>
-                        @endforeach
                     </div>
+
+                        <table class="table ">
+                        @php $lastName=''; @endphp
+                        @foreach ($permissions as $permission)
+                            @php
+                                if($permission->name !=$lastName && $lastName!=''){
+                                    echo '</tr>';
+                                }
+                                if($permission->name !=$lastName ){
+                                    $lastName=$permission->name;
+                                    echo '<tr><th>'.$permission->name.'</th>';
+                                }
+                            @endphp
+                            <td>
+                              <input type="checkbox" id="permissionsId[]{{ $permission->id }}"  name="permissionsId[]"  value="{{ $permission->id }}" @if($permission->has==1) checked="true" @endif >
+                              <label for="permissionsId[]{{ $permission->id }}"> {{ $permission->action_name }}</label>
+                            </td>
+                        @endforeach
+                        </table>
                     <div class="form-group mt-2">
                         @if($role->exists)
                                 <input class="btn btn-outline-success float-right" value="{{__('edit')}}" type="submit">

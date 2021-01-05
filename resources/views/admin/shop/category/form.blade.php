@@ -75,6 +75,20 @@
                               <img height="200"   align="center" src="{!! asset('storage/'.$item->logoPath) !!}">
                         </div>
                     @endif
+
+
+                    <div class="form-group">
+                      <label for="parent">{{__('parameters')}}</label>
+
+                        @foreach ($params as $param)
+                         <div class="form-group form-check">
+                              <input type="checkbox" id="parametersId[]{{ $param->id }}"  name="parametersId[]"  value="{{ $param->id }}" @if($param->has==1) checked="true" @endif >
+                              <label for="parametersId[]{{ $param->id }}">{{ $param->name }}</label>
+                          </div>
+                        @endforeach
+                    </div>
+
+
                     <div class="form-group form-check pt-3">
                           <input type="hidden" class="form-check-input" name="is_public" value=0>
                           <input type="checkbox" class="form-check-input" id="is_public" name="is_public" @if(old('is_public',$item['is_public'])) checked @endif value="1">

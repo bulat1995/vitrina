@@ -1,7 +1,7 @@
 @extends('admin.main')
 
 @section('title')
-{{__('permissions')}}
+{{__('shop.parameters')}}
 @endsection
 
 @section('content')
@@ -21,34 +21,30 @@
                     </font>
                 </div>
                 <div class="col-md-2">
-                <a href="{{ route('admin.permissions.create') }}">
+                <a href="{{ route('admin.shop.parameters.create') }}">
                     <button type="button" class="btn btn-outline-primary float-right mr-3">{{__('add')}}</button>
                 </a>
                 </div>
           </div>
-            @if(count($items)==0)
+            @if(count($parameters)==0)
                 <div class="alert alert-warning mt-4" role="alert">
                     Данный раздел пока не заполнен
                 </div>
             @else
-                <table class="table">
-                @php $lastName=''; @endphp
-                @foreach ($items as $permission)
-                    @php
-                        if($permission->name !=$lastName && $lastName!=''){
-                            echo '</tr>';
-                        }
-                        if($permission->name !=$lastName ){
-                            $lastName=$permission->name;
-                            echo '<tr><th>'.$permission->name.'</th>';
-                        }
-                    @endphp
-                    <td>
-                      <a href="{{ route('admin.permissions.edit',$permission->id) }}"> {{ $permission->action_name }}</a>
-                    </td>
-                @endforeach
-                </table>
+            <table class="table mt-4">
+              <tbody>
+                  @foreach ($parameters as $parameter)
+                      <tr>
+                          <td>
+                              <a href="{{ route('admin.shop.parameters.edit',$parameter->id) }}">{{ $parameter->name}}</a>
+                          </td>
+                      </tr>
+                  @endforeach
+            </table>
 
+            {{-- @if($parameters->total() > $parameters->count())
+                        {{ $parameters->links() }}
+            @endif --}}
 
             @endempty
         </div>

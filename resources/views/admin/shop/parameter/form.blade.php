@@ -1,10 +1,10 @@
 @extends('admin.main')
 
 @section('title')
-@empty($permission->id)
+@empty($parameter->id)
     {{__('adding')}}
     @else
-    {{__('editing')}} "{{ $permission->name }}"
+    {{__('editing')}} "{{ $parameter->name }}"
     @endempty
 @endsection
 
@@ -14,15 +14,15 @@
     @endif
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('admin.permissions.index') }}">{{__('permissions')}}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.shop.parameters.index') }}">{{__('shop.parameters')}}</a></li>
             <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
         </ol>
     </nav>
-    @if($permission->exists)
-    <form method="POST" action="{{route('admin.permissions.update',$permission->id)}}" enctype="multipart/form-data">
+    @if($parameter->exists)
+    <form method="POST" action="{{route('admin.shop.parameters.update',$parameter->id)}}" enctype="multipart/form-data">
     @method('PATCH')
     @else
-    <form method="POST" action="{{route('admin.permissions.store')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{route('admin.shop.parameters.store')}}" enctype="multipart/form-data">
     @endif
     @csrf
     <div class="row">
@@ -44,21 +44,37 @@
                         @endforeach
                     @endif
                     <div class="form-group">
-                      <label for="name">{{__('Permission name')}}:</label>
-                      <input type="text" class="form-control" id="name"  placeholder="Добавление нового пользователя" name="name" value="{{old('name',$permission->name)}}">
+                      <label for="name">{{__('Parameter name')}}:</label>
+                      <input type="text" class="form-control" id="name"  placeholder="Добавление нового пользователя" name="name" value="{{old('name',$parameter->name)}}">
+                    </div>
+
+
+                    <div class="form-group">
+                      <label for="slug">{{__('Parameter type')}}:</label>
+                      <select class="form-control" id="inputType"  name="inputType">
+                          @foreach($parameter::inputTypes as $inputType)
+                              <option>{{ $inputType }}</option>
+                          @endforeach
+                      </select>
+                    </div>
+
+
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input type="hidden"  name="required" value=0>
+                        <input type="checkbox" id="gridCheck" name="required" @if($parameter->required) checked @endif value=1>
+                        <label class="form-check-label" for="gridCheck">
+                          {{__('Parameter required')}}
+                        </label>
+                    </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="action_name">{{__('Permission action name')}}:</label>
-                      <input type="text" class="form-control" id="action_name"  placeholder="Добавление нового пользователя" name="name" value="{{old('action_name',$permission->action_name)}}">
-                    </div>
-
-                    <div class="form-group">
-                      <label for="slug">{{__('Permission slug')}}:</label>
-                      <input type="text" class="form-control" id="slug"  placeholder="admin.users.create" name="slug" value="{{old('slug',$permission->slug)}}">
+                      <label for="slug">{{__('Parameter regular')}}:</label>
+                      <input type="text" class="form-control" id="regular"  placeholder="admin.users.create" name="regular" value="{{old('regular',$parameter->regular)}}">
                     </div>
                     <div class="form-group mt-2">
-                        @if($permission->exists)
+                        @if($parameter->exists)
                                 <input class="btn btn-outline-success float-right" value="{{__('edit')}}" type="submit">
                             @else
                                 <input class="btn btn-outline-primary float-right" value="{{__('add')}}" type="submit">
@@ -68,22 +84,10 @@
             </div>
         </div>
     </form>
-    @if($permission->exists)
+    @if($parameter->exists)
         <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="name">{{__('created')}}:</label>
-                        <input disabled type="text" class="form-control" value="{{ old('created_at',$permission->created_at) }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">{{__('edited')}}:</label>
-                        <input disabled type="text" class="form-control"  value="{{ old('updated_at',$permission->updated_at) }}">
-                    </div>
-                </div>
-            </div>
-        @if(empty($permission->deleted_at))
-        <form action="{{ route('admin.permissions.destroy',$permission->id) }}" method="POST">
+        @if(empty($parameter->deleted_at))
+        <form action="{{ route('admin.shop.parameters.destroy',$parameter->id) }}" method="POST">
             @method('DELETE')
             @csrf
             <div class="card mt-1">
