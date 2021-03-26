@@ -3,7 +3,7 @@
 *    Контроллер работы с ключами доступа
 */
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class PermissionAdminController extends Controller
     public function index()
     {
         $items=Permission::orderBy('name','ASC')->toBase()->get();
-        return view('admin.permission.index',compact('items'));
+        return view('admin.user.permission.index',compact('items'));
     }
 
     /**
@@ -32,7 +32,7 @@ class PermissionAdminController extends Controller
     public function create()
     {
         $permission=new Permission();
-        return view('admin.permission.form',compact('permission'));
+        return view('admin.user.permission.form',compact('permission'));
     }
 
     /**
@@ -71,9 +71,9 @@ class PermissionAdminController extends Controller
     {
         $permission=Permission::findOrFail($id);
         if(!$permission->changeable){
-            abort(403,'system value ');
+            abort(403,'system value');
         }
-        return view('admin.permission.form',compact('permission'));
+        return view('admin.user.permission.form',compact('permission'));
     }
 
     /**

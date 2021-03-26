@@ -13,6 +13,7 @@ class ShopParameter extends Model
         'name',
         'inputType',
         'regular',
+        'rating',
         'required',
     ];
 
@@ -20,14 +21,16 @@ class ShopParameter extends Model
 
 
     public const inputTypes=[
-        'digits',
-        'input',
-        'textarea',
-        'time',
+        'digit',
+        'text',
         'date',
-        'datetime',
-        'site',
-        'email',
-        'phone',
+        'url',
+        'option',
+        // 'groups',
     ];
+
+    public function categories()
+    {
+            return $this->belongsToMany('App\Models\ShopCategory','shop_category_shop_parameter','parameter_id','category_id');
+    }
 }

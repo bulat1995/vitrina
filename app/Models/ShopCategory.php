@@ -15,7 +15,7 @@ class ShopCategory extends Model
         'name',
         'parent_id',
         'is_public',
-        'parametersId',
+        'parameters',
         'logoPath',
     ];
 
@@ -27,5 +27,11 @@ class ShopCategory extends Model
     public function products()
     {
         return $this->hasMany(ShopProduct::class,'category_id');
+    }
+
+    public function setParametersAttribute($value)
+    {
+        $this->parameters()->detach();
+        $this->parameters()->attach($value);
     }
 }

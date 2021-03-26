@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Storage;
 class ShopProductObserver
 {
 
+    private $fileManager;
+
+
+    public function __construct()
+    {
+        $this->fileManager=app('FileManagerService');
+    }
+
+
     /**
      * Обработка модели перед созданием
      *
@@ -18,7 +27,7 @@ class ShopProductObserver
     public function creating(ShopProduct $shopProduct)
     {
         unset($shopProduct->param,$shopProduct->images);
-        $shopProduct->user=auth()->user()->id;
+        //$shopProduct->user=auth()->user()->id;
     }
 
     /**
@@ -30,7 +39,6 @@ class ShopProductObserver
     public function created(ShopProduct $shopProduct)
     {
         $shopProduct=$this->addPhotos($shopProduct);
-        $shopProduct=$this->refreshParameters($shopProduct);
     }
 
     /**
@@ -42,7 +50,6 @@ class ShopProductObserver
     public function updating(ShopProduct $shopProduct)
     {
         unset($shopProduct->param,$shopProduct->images);
-
     }
 
     /*
@@ -51,7 +58,6 @@ class ShopProductObserver
     public function updated(ShopProduct $shopProduct)
     {
         $shopProduct=$this->addPhotos($shopProduct);
-        $shopProduct=$this->refreshParameters($shopProduct);
     }
 
     /**
@@ -68,35 +74,20 @@ class ShopProductObserver
         $shopProduct->photos()->delete();
     }
 
-    /*
-        Обновление параметров продукта
-    */
-    private function refreshParameters(ShopProduct $shopProduct)
-    {
-        $parameters=request()->param;
-        if(!empty($parameters))
-        {
-            $shopProduct->parameters()->detach();
-            foreach($parameters as $charact=>$value){
-                $newCharacteristics[$charact]=['value'=>$value];
-            }
-            $shopProduct->parameters()->attach($newCharacteristics);
-        }
-        return $shopProduct;
-    }
 
     /*
         Добавление фотографий к продукту
     */
     private function addPhotos(ShopProduct $shopProduct)
     {
+
         $images=request()->images;
         if(!empty($images))
         {
             $photos=[];
             foreach($images as $photo){
                 $image=new ShopProductPhoto();
-                $image->path=$photo->store('category','public');
+                $image->path=$this->fileManager->upload($photo,config('my.product.folderName'));
                 $photos[]=$image;
             }
             $shopProduct->photos()->saveMany($photos);

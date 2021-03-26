@@ -8,6 +8,7 @@ class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
+     *  Пользователи системы
      *
      * @return void
      */
@@ -21,13 +22,16 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
 
-
+            //Дата рождения
             $table->date('birthday')->nullable();
+            //Имя
             $table->string('firstName')->nullable();
+            //Фамилия
             $table->string('secondName')->nullable();
+            //Адрес проживания
             $table->string('address')->nullable();
+            //Логотип пользователя
             $table->string('avatar')->nullable();
-
             $table->timestamps();
         });
     }

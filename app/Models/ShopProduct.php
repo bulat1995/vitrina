@@ -14,7 +14,7 @@ class ShopProduct extends Model
             'name',
             'price',
             'category_id',
-            'param',
+            'parameters',
             'images'
     ];
 
@@ -29,4 +29,24 @@ class ShopProduct extends Model
     {
         return $this->hasMany('App\Models\ShopProductPhoto','product_id');
     }
+
+
+
+    //ПЕРЕДЕЛАЙ !!!!
+    public function cart()
+    {
+        return $this->hasOne('App\Models\ShopCart','product_id');
+    }
+
+
+    public function setParametersAttribute($param)
+    {
+        $this->parameters()->detach();
+        foreach($param as $charact=>$value){
+            $newCharacteristics[$charact]=['value'=>$value];
+        }
+        $this->parameters()->attach($newCharacteristics);
+    }
+
+
 }

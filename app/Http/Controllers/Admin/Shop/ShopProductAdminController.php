@@ -3,7 +3,7 @@
     Контроллер работы с товаром
 */
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Shop;
 
 use Illuminate\Http\Request;
 
@@ -73,9 +73,13 @@ class ShopProductAdminController extends Controller
     public function store(ShopProductRequest $request,$category_id=0)
     {
         $category=ShopCategory::findOrFail($category_id);
-        $product=new ShopProduct($request->all());
+        $data=$request->all();
+        unset($data['parameters']);
+        $product=new ShopProduct($data);
         $product->category_id=$category_id;
+        $product->user=auth()->user()->id;
         $result=$product->save();
+        $product->parameters=$request->input('parameters');
         if($result){
             return  redirect()->
                     route('admin.shop.products.show',$product->id)->
@@ -138,8 +142,12 @@ class ShopProductAdminController extends Controller
     public function update(ShopProductRequest $request, $id)
     {
         $product=ShopProduct::findOrFail($id);
-        $product->fill($request->all());
+        $data=$request->all();
+        unset($data['parameters']);
+        $product->fill($data);
         $product->save();
+        $product->parameters=$request->input('parameters');
+
         if($product)
         {
             return redirect()->route('admin.shop.products.show',$product->id)->

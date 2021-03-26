@@ -2,7 +2,7 @@
 /*
     Работа с фотографиями продукта
 */
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,18 +10,8 @@ use App\Models\ShopProductPhoto;
 
 use Illuminate\Support\Facades\Storage;
 
-class ShopProductPhotoController extends Controller
+class ShopProductPhotoAdminController extends Controller
 {
-    /**
-     * Отображение списка фотографий продукта
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Удаление фотографии по идентификатору

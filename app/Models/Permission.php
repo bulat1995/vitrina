@@ -13,7 +13,9 @@ class Permission extends Model
         'name','slug','action_name'
     ];
 
-
+    /*
+        Роли имеющие данный ключ
+    */
     public function roles()
     {
         return $this->belongsToMany(Role::class,'roles_permissions');

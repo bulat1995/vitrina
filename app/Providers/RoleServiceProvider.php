@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Blade;
 
 class RoleServiceProvider extends ServiceProvider
 {
+
     /**
      * Register services.
      *

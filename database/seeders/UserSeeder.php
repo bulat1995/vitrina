@@ -17,13 +17,15 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $roleEditor = Role::where('slug','role-editor')->first();
+        $adminPanel = Role::where('slug','adminPanel')->first();
         $user1 = new User();
         $user1->name = 'bulat1995';
         $user1->email = 'bulat1995@hello.com';
         $user1->password = bcrypt('123456');
         $user1->save();
-        $user1->roles()->attach($roleEditor);
+        $user1->roles()->attach($adminPanel);
+
+        
 
     }
 }

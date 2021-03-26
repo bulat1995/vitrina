@@ -9,41 +9,36 @@
 @endsection
 
 @section('content')
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-        @empty($item->id)
-            <li class="breadcrumb-item active" aria-current="page">{{__('Root Category')}}</li>
-        @else
-            <li class="breadcrumb-item"><a href="{{ route('admin.shop.categories.show') }}">{{__('Root Category')}}</a></li>
-            @foreach($breadcrumb as $crumb)
-                @if($loop->last)
-                    <li class="breadcrumb-item active">{{ $crumb->name }}</li>
-                @else
-                    <li class="breadcrumb-item "><a href="{{ route('admin.shop.categories.show',$crumb->id) }}">{{ $crumb->name }}</a></li>
-                @endif
-            @endforeach
-        @endempty
-        </ol>
-    </nav>
-    @if($item->exists)
-    <form method="POST" action="{{route('admin.shop.categories.update',$item->id)}}" enctype="multipart/form-data">
-    @method('PATCH')
-    @else
-    <form method="POST" action="{{route('admin.shop.categories.store')}}" enctype="multipart/form-data">
-    @endif
-    @csrf
+
+
+
+
     <div class="row">
         <div class="col-md-9">
+
+                <div class="chart-box">
+                    <ol class="breadcrumb">
+                    @empty($item->id)
+                        <li class="breadcrumb-item active" aria-current="page">{{__('rootCategory')}}</li>
+                    @else
+                        <li class="breadcrumb-item"><a href="{{ route('admin.shop.categories.show') }}">{{__('rootCategory')}}</a></li>
+                        @foreach($breadcrumb as $crumb)
+                            @if($loop->last)
+                                <li class="breadcrumb-item active">{{ $crumb->name }}</li>
+                            @else
+                                <li class="breadcrumb-item "><a href="{{ route('admin.shop.categories.show',$crumb->id) }}">{{ $crumb->name }}</a></li>
+                            @endif
+                        @endforeach
+                    @endempty
+                </ol>
+            @if($item->exists)
+                <form method="POST" action="{{route('admin.shop.categories.update',$item->id)}}" enctype="multipart/form-data">
+                    @method('PATCH')
+                @else
+                    <form method="POST" action="{{route('admin.shop.categories.store')}}" enctype="multipart/form-data">
+                    @endif
+                    @csrf
             <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <font size=3>
-                                @yield('title')
-                            </font>
-                        </div>
-                    </div>
-                  </div>
                 <div class="card-body">
                     @if ($errors->any())
                         @foreach ($errors->all() as $error)
@@ -51,13 +46,13 @@
                         @endforeach
                     @endif
                     <div class="form-group">
-                      <label for="name">{{__('Category name')}}</label>
-                      <input type="text" class="form-control" id="name"  placeholder="Компьютеры" name="name" value="{{old('name',$item->name)}}">
+                      <label for="name">{{__('categoryName')}}</label>
+                      <input type="text" class="form-control" id="name"  name="name" value="{{old('name',$item->name)}}">
                     </div>
                     <div class="form-group">
-                      <label for="parent">{{__('Parent Category')}}</label>
+                      <label for="parent">{{__('parentCategory')}}</label>
                       <select class="form-control" id="parent" name="parent_id">
-                          <option value="0">Корневая категория</option>
+                          <option value="0">{{ __('Root Category') }}</option>
                           @foreach ($categories as $category)
                               <option @if($category->id==$item->parent_id || $category->id ==$parent_id) selected @endif value="{{ $category->id }}">@php echo str_repeat('&nbsp;', $category->_lvl*8) @endphp {{ $category->name }}</option>
                           @endforeach
@@ -66,24 +61,22 @@
                     <div class="form-group">
                       <label for="logo">{{__('logo')}}</label>
                       <input type="file" class="form-control-file" id="logo"  name="logo" value="{{old('name',$item->name)}}">
-                    <span style="color:#555">Формат файла: <i>gif, jpeg, jpg, bmp</i></span>
+                    <span style="color:#555">{{__('fileFormat')}}: <i>gif, jpeg, jpg, bmp</i></span>
                     </div>
                     @if(!empty ($item->logoPath))
                         <div class="form-group">
                           <label for="logo">{{__('current logo')}}</label>
                           <br>
-                              <img height="200"   align="center" src="{!! asset('storage/'.$item->logoPath) !!}">
+                              <img height="200" align="center" src="{!! asset(Config::get('my.category.filePathWeb').$item->logoPath) !!}">
                         </div>
                     @endif
 
-
                     <div class="form-group">
-                      <label for="parent">{{__('parameters')}}</label>
-
+                      <label for="parent">{{__('productParameters')}}</label>
                         @foreach ($params as $param)
                          <div class="form-group form-check">
-                              <input type="checkbox" id="parametersId[]{{ $param->id }}"  name="parametersId[]"  value="{{ $param->id }}" @if($param->has==1) checked="true" @endif >
-                              <label for="parametersId[]{{ $param->id }}">{{ $param->name }}</label>
+                              <input type="checkbox" id="parameters[]{{ $param->id }}"  name="parameters[]"  value="{{ $param->id }}" @if($param->has==1) checked="true" @endif >
+                              <label for="parameters[]{{ $param->id }}">{{ $param->name }}</label>
                           </div>
                         @endforeach
                     </div>
@@ -96,17 +89,21 @@
                     </div>
                     <div class="form-group mt-2">
                         @if($item->exists)
-                                <input class="btn btn-outline-success float-right" value="{{__('edit')}}" type="submit">
+                                <input class="btn btn-success pull-right" value="{{__('edit')}}" type="submit">
                             @else
-                                <input class="btn btn-outline-primary float-right" value="Создать" type="submit">
+                                <input class="btn btn-primary pull-right" value="{{ __('create') }}" type="submit">
                             @endif
                     </div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
+        </form>
         </div>
-    </form>
+        </div>
     @if($item->exists)
         <div class="col-md-3">
+
+                <div class="chart-box">
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
@@ -135,7 +132,7 @@
                             <label for="restoreWithDescedents"> {{__('restore')}} {{__('withDescedents')}}</label>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class=" form-control btn btn-outline-dark"  name="restore" value="{{__('restore')}}">
+                            <input type="submit" class=" form-control btn btn-dark"  name="restore" value="{{__('restore')}}">
                         </div>
                     </form>
                 </div>
@@ -153,15 +150,15 @@
                         <div class="form-group  form-check ">
                             <input type="hidden" name="soft" value=0>
                             <input type="checkbox" class="form-check-input"  name="soft" value=1 id="softDelete">
-                            <label for="softDelete">{{__('Soft Delete')}}</label>
+                            <label for="softDelete">{{__('softDelete')}}</label>
                         </div>
                         <div class="form-group  form-check ">
                             <input type="hidden" name="withDescedents" value=0>
                             <input type="checkbox" class="form-check-input"  value=1 name="withDescedents" id="deleteWithDescedents">
-                            <label for="deleteWithDescedents"> {{__('With Descedents')}}</label>
+                            <label for="deleteWithDescedents"> {{__('withDescedents')}}</label>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-outline-danger float-right" name="delete" value="{{__('delete')}}">
+                            <input type="submit" class="btn btn-danger  " name="delete" value="{{__('delete')}}">
                         </div>
                 </div>
             </div>
@@ -170,5 +167,5 @@
         </div>
     @endif
 </div>
-
+</div>
 @endsection

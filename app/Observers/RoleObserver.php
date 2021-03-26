@@ -3,9 +3,11 @@
 namespace App\Observers;
 
 use App\Models\Role;
+use App\Observers\RolesPermissionsTraitObserver;
 
 class RoleObserver
 {
+    use RolesPermissionsTraitObserver;
 
     /**
      * Обработка перед созданием
@@ -41,17 +43,5 @@ class RoleObserver
         $role=$this->refreshPermissions($role);
     }
 
-    /*
-        Обновление ключей доступа роли
-    */
-    private function refreshPermissions(Role $role)
-    {
-        unset($role->permissionsId);
-        $permissions=request()->route()->permissionsId;
-        if(!empty($role->id)){
-            $role->permissions()->detach();
-            $role->permissions()->attach($permissions);
-        }
-        return $role;
-    }
+
 }

@@ -8,14 +8,16 @@ class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     *  Роли пользователя
      * @return void
      */
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
+            //Наименование роли
             $table->string('name');
+            //Ключ роли для middleware
             $table->string('slug');
             $table->timestamps();
         });

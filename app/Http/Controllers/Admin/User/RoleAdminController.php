@@ -2,7 +2,7 @@
 /*
 *   Контроллер управления ролями
 */
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\User;
 
 use Illuminate\Http\Request;
 
@@ -29,7 +29,7 @@ class RoleAdminController extends Controller
     public function index()
     {
         $items=Role::toBase()->get();
-        return view('admin.role.index',compact('items'));
+        return view('admin.user.role.index',compact('items'));
     }
 
     /**
@@ -41,7 +41,7 @@ class RoleAdminController extends Controller
     {
         $role=new Role();
         $permissions=$this->permissionRepository->getAllPermissionWithMarks();
-        return view('admin.role.form',compact('role','permissions'));
+        return view('admin.user.role.form',compact('role','permissions'));
     }
 
     /**
@@ -69,7 +69,7 @@ class RoleAdminController extends Controller
     public function show($id)
     {
         $role=Role::whereId($id)->with(['users','permissions'])->first();
-        return view('admin.role.show',compact('role'));
+        return view('admin.user.role.show',compact('role'));
     }
 
     /**
@@ -82,7 +82,7 @@ class RoleAdminController extends Controller
     {
         $role=Role::findOrFail($id);
         $permissions=$this->permissionRepository->getAllPermissionWithMarks($id);
-        return view('admin.role.form',compact('role','permissions'));
+        return view('admin.user.role.form',compact('role','permissions'));
     }
 
     /**

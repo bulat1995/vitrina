@@ -8,7 +8,7 @@ class CreateRolesPermissionsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     *  Сводная таблица Роль><Ключ доступа
      * @return void
      */
     public function up()

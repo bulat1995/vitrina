@@ -37,6 +37,7 @@ trait HasRolesAndPermissions
      */
     public function hasPermission($permission)
     {
+        
         return (bool) $this->permissions->where('slug', $permission)->toBase()->count();
     }
 

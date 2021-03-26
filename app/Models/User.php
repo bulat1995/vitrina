@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use App\Models\Role;
+use App\Models\Permission;
 
 class User extends Authenticatable
 {
@@ -24,6 +25,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
+        'birthday',
+        'address',
+        'firstName',
+        'secondName',
+        'permissionsId',
+        'roles'
     ];
 
     /**
@@ -45,8 +53,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class,'users_roles');
-    }
 }

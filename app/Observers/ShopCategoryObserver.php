@@ -9,9 +9,13 @@ class ShopCategoryObserver
 {
     private $repository;
 
+    private $fileManager;
+
     public function __construct()
     {
         $this->repository=app(ShopCategoryRepository::class);
+        $this->fileManager=app('FileManagerService');
+
     }
 
 
@@ -25,8 +29,10 @@ class ShopCategoryObserver
         $shopCategory->_rgt=$rightPosition+2;
         $this->repository->attract($rightPosition,2);
 
-        $shopCategory=$this->logoAndParametersUpdate($shopCategory);
-        //dd(__METHOD__,$shopCategory);
+        if(!empty(request()->file('logo'))){
+            $shopCategory->logoPath=$this->fileManager->upload(request()->file('logo'),config('my.category.folderName'));
+        }
+
     }
 
     /**
@@ -37,7 +43,6 @@ class ShopCategoryObserver
      */
     public function created(ShopCategory $shopCategory)
     {
-        $shopCategory=$this->logoAndParametersUpdate($shopCategory);
     }
 
     /**
@@ -48,13 +53,17 @@ class ShopCategoryObserver
      */
     public function updating(ShopCategory $shopCategory)
     {
-        $this->deleteLogo($shopCategory);
+
         if($shopCategory->isDirty('parent_id')){
             $item=$this->repository->getNodeById($shopCategory->parent_id)??null;
             $this->repository->move($shopCategory,$item);
         }
-        $shopCategory=$this->logoAndParametersUpdate($shopCategory);
-        dd(__METHOD__);
+
+        if(!empty(request()->file('logo'))){
+            $this->fileManager->deleteFile(config('my.category.filePath').$shopCategory->logoPath);
+            $shopCategory->logoPath=$this->fileManager->upload(request()->file('logo'),config('my.category.folderName'));
+        }
+
     }
 
 
@@ -73,42 +82,7 @@ class ShopCategoryObserver
 
     public function forceDeleting(ShopCategory $shopCategory)
     {
-        $this->deleteLogo($shopCategory,true);
-    }
-
-
-    /*
-        Удаление изображения из хранилища
-        $removeForce - принудительно
-    */
-    private function deleteLogo(ShopCategory $shopCategory, $removeForce=false)
-    {
-        //Удаление старого изображения
-        if($shopCategory->isDirty('logoPath') || $removeForce)
-        {
-            $path=$shopCategory->getOriginal('logoPath');
-            if(!empty($path)){
-                Storage::delete($shopCategory->getOriginal('logoPath'));
-            }
-        }
-    }
-
-    /*
-        Обновление Логотипа и Параметров Категорий
-    */
-    private function logoAndParametersUpdate(ShopCategory $shopCategory)
-    {
-        $file=request()->file('logo');
-        if(!empty($file)){
-            $shopCategory->logoPath=$file->store('category','public');
-        }
-        unset($shopCategory->parametersId);
-        if(!empty($shopCategory->id))
-        {
-            $shopCategory->parameters()->detach();
-            $shopCategory->parameters()->attach(request()->route()->parametersId);
-        }
-        return $shopCategory;
+        $this->fileManager->deleteFile(config('my.category.filePath').$shopCategory->logoPath);
     }
 
 

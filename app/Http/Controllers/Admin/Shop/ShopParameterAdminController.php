@@ -3,7 +3,7 @@
     Работа с параметрами товаров
 
 */
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class ShopParameterAdminController extends Controller
      */
     public function index()
     {
-        $parameters=ShopParameter::get();
+        $parameters=ShopParameter::paginate(10);
         return view('admin.shop.parameter.index',compact('parameters'));
     }
 

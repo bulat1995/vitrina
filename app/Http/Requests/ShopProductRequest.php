@@ -24,12 +24,13 @@ class ShopProductRequest extends FormRequest
      */
     public function rules()
     {
+    //    dd(request());
         return [
             'name'=>'required|min:3',
             'price'=>'required|gt:0',
             'images.*'=>'mimes:jpeg,png,gif,jpg,bmp|max:4096',
             //'category_id'=>'required|exists:shop_categories,id',
-            'param'=>[new ShopProductParameterRule],
+            'parameters'=>[new ShopProductParameterRule],
         ];
     }
 }

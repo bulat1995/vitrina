@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\ShopProduct;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['namespace'=>'App\Http\Controllers\Api\\'],function(){
+	//Поиск товаров
+	Route::post('search','SearchApiController@simpleSearch');
 });

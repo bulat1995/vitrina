@@ -21,8 +21,10 @@ class ShopCategoryFactory extends Factory
      */
     public function definition()
     {
+        $image=$this->faker->image('public/storage/category/',40,40, 'cats', false);
         return [
             'name'=>$this->faker->name,
+            'logoPath' => $image,
             'parent_id'=>rand(0,5)
         ];
     }

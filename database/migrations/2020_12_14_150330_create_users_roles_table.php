@@ -8,7 +8,7 @@ class CreateUsersRolesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     *  Сводная таблица Пользователь >< Роль
      * @return void
      */
     public function up()

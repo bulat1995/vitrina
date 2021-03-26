@@ -28,6 +28,7 @@ class ShopParameterRequest extends FormRequest
          return [
              'name'=>'required|min:2',
              'regular'=>['required','min:1'],
+             'rating'=>['required','min:0'],
              'required'=>'boolean',
              'inputType'=>'required|in:' . implode(',', ShopParameter::inputTypes),
          ];

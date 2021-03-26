@@ -8,7 +8,7 @@ class CreateProductParameters extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * Сводная таблица (с колонкой value-значение) Товар -- Параметр товара
      * @return void
      */
     public function up()
@@ -16,6 +16,7 @@ class CreateProductParameters extends Migration
         Schema::create('product_parameters', function (Blueprint $table) {
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('parameter_id');
+            //Значение параметра товара
             $table->text('value');
 
             $table->foreign('product_id')->references('id')->on('shop_products')->onDelete('cascade');

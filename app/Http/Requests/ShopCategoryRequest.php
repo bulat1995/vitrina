@@ -27,9 +27,8 @@ class ShopCategoryRequest extends FormRequest
             'name'=>'required|min:2',
             'parent_id'=>'required|min:0',
             'is_public'=>'boolean',
-            'parametersId'=>'exists:shop_parameters,id',
+            'parameters'=>'exists:shop_parameters,id',
             'logo'=>'image|mimes:jpeg,png,gif,jpg,bmp|max:4096'
-
         ];
     }
 

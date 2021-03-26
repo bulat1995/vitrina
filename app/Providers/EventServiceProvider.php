@@ -11,10 +11,14 @@ use Illuminate\Support\Facades\Event;
 use App\Models\ShopCategory;
 use App\Models\ShopProduct;
 use App\Models\Role;
+use App\Models\User;
+use App\Models\Slider;
 
 use App\Observers\ShopCategoryObserver;
 use App\Observers\ShopProductObserver;
 use App\Observers\RoleObserver;
+use App\Observers\ProfileAdminObserver;
+use App\Observers\SliderAdminObserser;
 
 
 class EventServiceProvider extends ServiceProvider
@@ -40,5 +44,7 @@ class EventServiceProvider extends ServiceProvider
         Role::observe(RoleObserver::class);
         ShopCategory::observe(ShopCategoryObserver::class);
         ShopProduct::observe(ShopProductObserver::class);
+        User::observe(ProfileAdminObserver::class);
+        Slider::observe(SliderAdminObserser::class);
     }
 }

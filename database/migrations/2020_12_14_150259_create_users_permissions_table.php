@@ -8,7 +8,7 @@ class CreateUsersPermissionsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * Сводная таблица Пользователь >- ключ доступа
      * @return void
      */
     public function up()

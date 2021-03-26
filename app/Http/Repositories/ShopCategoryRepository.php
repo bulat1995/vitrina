@@ -62,9 +62,8 @@ class ShopCategoryRepository extends CoreRepository
             $columns=[
                 \DB::raw('shop_2.*'),
                 \DB::raw('(shop_categories._lft<=shop_2._lft AND shop_categories._rgt >=shop_2._rgt) as  hide'),
-                \DB::raw('(shop_2._lft<=shop_categories._lft) as  tree'),
+                \DB::raw('(shop_2._lft<=shop_categories._lft and shop_2._rgt>=shop_categories._rgt ) as  tree'),
             ];
-
             $result=$this->startConditions()->
             select($columns)->
             leftJoin('shop_categories as shop_2',function($join){
@@ -75,7 +74,6 @@ class ShopCategoryRepository extends CoreRepository
             //toBase()->
             get();
         }
-
         return  $result;
     }
 
@@ -142,6 +140,14 @@ class ShopCategoryRepository extends CoreRepository
         return $result;
     }
 
+
+    /*
+        Поиск по ключевому слову
+    */
+    public function findByKeyword($key)
+    {
+        return $this->startConditions()->where('name','like',$key)->get();
+    }
 
 
 

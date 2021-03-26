@@ -3,7 +3,7 @@
     Контроллер работы с категориями товаров
 */
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Shop;
 
 use Illuminate\Http\Request;
 
@@ -17,8 +17,6 @@ use App\Http\Requests\ShopCategoryRequest;
 use App\Http\Requests\ShopCategoryDeleteRequest;
 use App\Http\Requests\ShopCategoryRestoreRequest;
 
-use Database\Seeders\DatabaseSeeder;
-use Database\Seeders\ShopCategorySeeder;
 
 
 class ShopCategoryAdminController extends Controller
@@ -104,9 +102,11 @@ class ShopCategoryAdminController extends Controller
      */
     public function store(ShopCategoryRequest $request)
     {
-        $item=new ShopCategory();
         $data=$request->input();
-        $item->fill($data)->save();
+        unset($data['parameters']);
+        $item=new ShopCategory($data);
+        $item->save();
+        $item->parameters=$request->input('parameters');
         if($item)
         {
             return redirect()->route('admin.shop.categories.show',$item->id)
@@ -134,7 +134,7 @@ class ShopCategoryAdminController extends Controller
         $categories=[];
         foreach($tree as $entity)
         {
-            if($entity->tree){
+            if($entity->tree==1){
                 $breadcrumb[]=$entity;
             }
             if($entity->hide!=1){
@@ -163,7 +163,7 @@ class ShopCategoryAdminController extends Controller
         $data=$request->all();
         $item=$this->repository->getNodeById($id);
         $item->fill($data)->save();
-
+        $item->parameters=$request->input('parameters');
         if($item)
         {
             return redirect()

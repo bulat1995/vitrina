@@ -2,7 +2,7 @@
 namespace App\Http\Repositories;
 
 use App\Http\Repositories\CoreRepository;
-use App\Models\ShopProduct as Model;    
+use App\Models\ShopProduct as Model;
 
 class ShopProductRepository extends CoreRepository
 {
@@ -44,12 +44,58 @@ class ShopProductRepository extends CoreRepository
                 $join->where('product_parameters.product_id','=',$product_id);
             })->
             where('shop_category_shop_parameter.category_id',$category_id)->
-            //toBase()->
             get();
-            //dd($result);
         return $result;
     }
 
+
+    public function findByKeyword($key)
+    {
+        return $this->startConditions()->
+            where('name','like',$key)->
+            get();
+    }
+
+
+    public function getNewProducts()
+    {
+        $columns=array(
+            'name',
+            'price',
+            \DB::raw('shop_products.id as id'),
+            \DB::raw('shop_product_photos.path as photo'),
+        );
+        return $this->startConditions()
+        ->select($columns)
+        ->leftJoin('shop_product_photos',function($join){
+            $join->on('shop_products.id','=','shop_product_photos.product_id');
+        })
+        ->toBase()
+        ->paginate(20);
+    }
+
+    public function getProductsByArray($idArray=null)
+    {
+        if(is_null($idArray)){
+            return false;
+        }
+        $columns=array(
+            'name',
+            'price',
+            \DB::raw('shop_products.id as id'),
+            \DB::raw('shop_product_photos.path as photo'),
+        );
+
+        return $this->startConditions()
+        ->select($columns)
+        ->whereIn('shop_products.id',$idArray)
+        ->leftJoin('shop_product_photos',function($join){
+            $join->on('shop_products.id','=','shop_product_photos.product_id');
+        })
+        ->groupBy('shop_products.id')
+        ->toBase()
+        ->get();
+    }
 
 
 

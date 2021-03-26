@@ -1,4 +1,7 @@
 <?php
+/*
+    Репозиторий работы с ключами доступа
+*/
 namespace App\Http\Repositories;
 
 use App\Http\Repositories\CoreRepository;
@@ -36,6 +39,31 @@ class PermissionRepository extends CoreRepository
             toBase()->
             get();
         return $result;
+    }
+
+    /*
+        Отбор всех ключей доступа с метками для пользователя
+    */
+    public function getPermissionListForUser($user_id=0)
+    {
+        $columns=array(
+            'permissions.id',
+            'permissions.name',
+            'permissions.action_name',
+            \DB::raw("users_permissions.user_id= $user_id as has")
+
+        );
+        $result=$this->startConditions()->
+        select($columns)->
+        leftJoin('users_permissions',function($join) use ($user_id){
+            $join->on('permissions.id','=','users_permissions.permission_id');
+            $join->where('users_permissions.user_id','=',\DB::raw($user_id));
+        })->
+        toBase()->
+        orderBy('name','ASC')->
+        get();
+        return $result;
+
     }
 
 

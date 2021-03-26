@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Polygo'),
+    'name' => env('APP_NAME', 'Polygon'),
+
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +94,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +107,7 @@ return [
     |
     */
 
-    'faker_locale' => 'ru_RU',
+    'faker_locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -175,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\PermissionServiceProvider::class,
         App\Providers\RoleServiceProvider::class,
+        App\Providers\FileManagerServiceProvider::class,
 
     ],
 

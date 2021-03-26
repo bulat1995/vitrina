@@ -1,7 +1,75 @@
 {
+    
+    "language":"Язык",
+    "appearanceSite":"Внешний вид сайта",
+    "controlPanel":"Панель управления",
+    "profile":"Профиль",
+    "findProduct":"Найти товар ... ",
+    "searchProduct":"Поиск товара ",
+    "finded":"Найденные товары",
+    "menu":"Меню",
+    "news":"Новые",
+    "from":"От",
+    "to":"До",
+    "avatar":"Аватарка",
+    "lastViewed":"Последние просмотренные",
+
+    "sortBy":"Сортировка",
+    "priceMin":"Дешевые",
+    "priceMax":"Дорогие",
+    "nameMin":"Наименование От А до Я",
+    "nameMax":"Наименование От Я до А",
+
+    "accept":"Применить",
+    "reset":"Сбросить",
+    "haveAQuestion":"Есть вопросы",
+    "emptyModule":"Раздел пуст",
+    "lastReview":"Последние отзывы",
+    "allReviews":"Все отзывы",
+    "editingReviewBy":"Редактирование отзыва на",
+
+
+
+
+    "goToSite":"Перейти на сайт",
+    "site":"Сайт",
+    "search":"Поиск по сайту",
+    "siteParameters":"Параметры сайта",
+    "shopSliders":"Слайдер",
+    "seeAllMessages":"Посмотреть все сообщения",
+    
+    "shop":"Магазин",
+    "products":"Товары",
+    "categories":"Категории",
+    "shopParameters":"Параметры товара",
+    "staticPages":"Статические страницы",
+
+    "systemAccess":"Доступ к системе",
+    "users":"Пользователи",
+    "allUsers":"Все пользователи",
+    "editProfile":"Редатирование профиля",
+    "roles":"Роли",
+    "permisssions":"Ключи доступа",
+
+    "category":"Категория",
+    "title":"Заголовок",
+    "showUntil":"Отображать до",
+    "rating":"Рейтинг",
+    "describe":"Описание",
+    "image":"Изображение",
+    "buttonText":"Текст на кнопке",
+    "href":"Ссылка перехода",
+    "blank":"Открыть ссылку в новом окне",
+    "show":"Показывать",
+    "currentLogo":"Текущее изображение",
+
+
+
+
     "Register":"Регистрация",
     "Login":"Авторизация",
-    "Logout":"Выйти",
+    "logout":"Выйти",
+    "profileEdit":"Редактирование профиля",
 
     "Remember Me":"Запомнить меня",
     "Enter":"Войти",
@@ -11,38 +79,83 @@
     "Send Password Reset Link":"Отправить ссылку сброса пароля на email",
 
 
-    "Name":"Имя пользователя",
+    "Nickname":"Никнейм",
+    "avatar":"Аватарка",
+    "firstName":"Имя",
+    "secondName":"Фамилия",
+    "userProfile":"Профиль пользователя",
+    "address":"Адрес",
+    "birthday":"День рождения",
+    "firstname and secondName":"Имя и Фамилия",
     "E-Mail Address":"Email адрес",
     "Password":"Пароль",
     "Confirm Password":"Подтверждение пароля",
 
 
+
     "categories":"Категории",
-    "Category name":"Наименование категории",
-    "Root Category":"Корневая категория",
-    "Parent Category":"Родительская категория",
+    "categoryName":"Наименование категории",
+    "fileFormat":"Формат файла",
+    "rootCategory":"Корневая категория",
+    "parentCategory":"Родительская категория",
     "logo":"Логотип",
     "publish":"Опубликовать",
-    "Soft Delete":"мягкое удаление",
-    "With Descedents":" с потомками",
+    "softDelete":"мягкое удаление",
+    "withDescedents":" с потомками",
 
 
-    "Roles":"Роли",
-    "Role name":"Наименование роли",
-    "Slug role":"Идентификатор роли",
+    "roles":"Роли",
+    "roleName":"Наименование роли",
+    "slugRole":"Идентификатор роли",
 
     "permissions":"Ключи доступа",
-    "Permission name":"Наименование ключа доступа",
-    "Permission slug":"Идентификатор ключа доступа",
+    "permissionName":"Наименование ключа доступа",
+    "permissionSlug":"Идентификатор ключа доступа",
+    "permissionActionName":"Идентификатор действия контроллера",
 
 
-    "Parameter name":"Наименование параметра",
-    "Parameter type":"Тип параметра",
-    "shop.parameters":"Параметры товаров",
-    "Parameter regular":"Регулярное выражение для проверки параметра",
+    "shopParameters":"Параметры товаров",
+    "parameterName":"Наименование параметра",
+    "parameterType":"Тип параметра",
+    "parameterSlug":"Идентификатор параметра",
+    "parameterRequired":"Параметр обязателен для заполнения",
+    "parameterRating":"Рейтинг параметра",
+    "parameterValue":"Значение параметра",
+    "parameterRegular":"Регулярное выражение для проверки параметра",
 
 
-    "Products":"Товары",
+    "products":"Товары",
+    "product":"Товар",
+    "count":"Количество",
+    "estimate":"Оценка",
+    "addProduct":"Новый товар",
+    "productParameters":"Параметры продукта",
+    "productsInCategory":"Товары в категории",
+    "loadedImages":"Изображения товара",
+    "deleteImage":"Удалить изображение",
+    "price":"Стоимость",
+
+    "digit":"Число",
+    "text":"Текст",
+    "date":"Дата",
+    "url":"Ссылка",
+    "option":"Выбор одного из списка",
+    "groups":"Выбор нескольких из списка",
+
+
+    "deleteUser":"Удалить пользователя",
+    "user":"Пользователь",
+
+
+
+    "message":"Cообщение",
+    "send message":"Написать",
+    "messages":"Сообщения",
+    "sender":"Отправитель",
+    "recepient":"Получатель",
+    "history of messages is empty":"История сообщений пуста",
+    "new messages":"Новых сообщений",
+
 
     "adding":" Добавление",
     "created":" Создано",
@@ -50,8 +163,47 @@
     "edited":" Отредактировано",
     "Deleting":" Удаление",
 
+    "users":"Пользователи",
+
+    "pages":"Страницы",
+
+    "pageTitle":"Заголовок страницы",
+    "pageSlug":"Идентификатор страницы",
+    "pageRating":"Рейтинг",
+    "pageContent":"Содержимое страницы",
+    "pageDescribe":"Описание страницы",
+    "published":"опубликовано",
+    "not published":"не опубликовано",
+    "showInMenu":"Отображать в меню",
+    "showUser":"Показать автора",
+    "commentable":"Возможность комментирования",
+    "BotCanIndex":"Индексация страницы ботом",
+
+
     "edit":"Редактировать",
+    "send":"Отправить",
     "add":"Добавить",
     "create":"Создать",
-    "delete":"Удалить"
+    "delete":"Удалить",
+
+    "searchBy":"Поиск по запросу",
+    "notFound":"Ничего не найдено",
+
+    "name":"Наименование",
+    "cart":"Корзина",
+    "in cart":"В корзине",
+    "quantity":"Количество",
+    "Total":"Всего",
+    "emptyCart":"В корзине нет товаров",
+    "delete from cart":"Убрать из корзины",
+    "add to cart":"Добавить в корзину",
+    "coin":"&#8381;",
+
+    "reviews":"Отзывы",
+    "review":"Отзыв",
+    "new review":"Составить отзыв",
+    "edit review":"Редактировать отзыв",
+    "emptyReview":"Вы не писали отзывы",
+    "unit is empty":"Данный раздел пока пуст"
+
 }

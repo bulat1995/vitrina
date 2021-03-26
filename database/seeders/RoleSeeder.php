@@ -25,6 +25,14 @@ class RoleSeeder extends Seeder
         $manager->permissions()->attach($createTasks);
         $manager->save();
 
+        $manager = new Role();
+        $createTasks = Permission::all();
+        $manager->name = 'Доступ к админпанели';
+        $manager->slug = 'adminPanel';
+        $manager->save();
+        $manager->permissions()->attach($createTasks);
+        $manager->save();
+
         $createTasks = Permission::where('slug','like','%role%')->get();
         $developer = new Role();
         $developer->name = 'Управление Ролями';
