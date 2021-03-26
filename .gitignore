@@ -10,3 +10,10 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+
+/storage/app/public/avatars/*
+/storage/app/public/category/*
+/storage/app/public/product/*
+/storage/app/public/slider/*
+/storage/app/public/user/*
