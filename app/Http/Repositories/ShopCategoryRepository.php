@@ -141,6 +141,41 @@ class ShopCategoryRepository extends CoreRepository
     }
 
 
+
+    /*
+        Получить список параметров со значениями для категории
+    */
+    public function getParameters($category_id=0)
+    {
+        $columns=[
+            'shop_parameters.id',
+             \DB::raw('shop_parameters.name as parameterName'),
+            \DB::raw('shop_categories.id as category'),
+            'shop_parameters.inputType',
+            'shop_parameters.regular',
+            'shop_parameters.required',
+            'rating',
+            \DB::raw('null as value')
+        ];
+
+        $result=$this->startConditions()
+        ->select($columns)
+        ->leftJoin('shop_category_shop_parameter',function($join){
+            $join->on('shop_categories.id','=','shop_category_shop_parameter.category_id');
+        })        
+        ->leftJoin('shop_parameters',function($join){
+            $join->on('shop_parameters.id','=','shop_category_shop_parameter.parameter_id');
+        })
+
+        ->where('shop_categories.id',$category_id)
+        ->toBase()
+        ->orderBy('rating ','ASC')
+        ->get();
+        return $result;
+    }
+
+
+
     /*
         Поиск по ключевому слову
     */

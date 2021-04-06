@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Admin\Shop;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SiteParameter;
+use App\Http\Requests\ShopSiteParameterRequest;
 
 class ShopSiteParametersAdminController extends Controller
 {
@@ -39,7 +40,7 @@ class ShopSiteParametersAdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ShopSiteParameterRequest $request)
     {
         $parameter=new SiteParameter();
         $parameter->fill($request->input());
@@ -78,7 +79,7 @@ class ShopSiteParametersAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $slug)
+    public function update(ShopSiteParameterRequest $request, $slug)
     {
         $parameter=SiteParameter::where('slug',$slug)->firstOrFail();
         $parameter->fill($request->input());

@@ -1,5 +1,5 @@
 <?php
-
+ 
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,9 +39,9 @@ Route::group(['middleware'=>['language'],'prefix'=>'/'],function(){
             //Параметры товара
             Route::resource('parameters','ShopParameterAdminController')->except(['show'])->names('admin.shop.parameters');
             //Работа с товаром
-            Route::resource('products','ShopProductAdminController')->except(['create'])->names('admin.shop.products');
+            Route::resource('products','ShopProductAdminController')->except(['create','index'])->names('admin.shop.products');
             //  Создание раздела
-            Route::get('categories/{category_id}/products',[App\Http\Controllers\Admin\Shop\ShopProductAdminController::class,'index'])->name('admin.shop.products.index');
+            // Route::get('categories/{category_id}/products',[App\Http\Controllers\Admin\Shop\ShopProductAdminController::class,'index'])->name('admin.shop.products.index');
             //Форма добавления товара
             Route::get('products/create/{id?}',[App\Http\Controllers\Admin\Shop\ShopProductAdminController::class,'create'])->where('id', '[\d]+')->name('admin.shop.products.create');
             //добавление товара
@@ -55,7 +55,7 @@ Route::group(['middleware'=>['language'],'prefix'=>'/'],function(){
 
 
             //Работа  со слайдером
-            Route::resource('slider','ShopSliderAdminController',['except'=>['show']])->names('admin.shop.sliders');
+            Route::resource('sliders','ShopSliderAdminController',['except'=>['show']])->names('admin.shop.sliders');
            
 
             //Статические страницы
@@ -65,7 +65,7 @@ Route::group(['middleware'=>['language'],'prefix'=>'/'],function(){
 
 
             //Отзывы
-            Route::resource('reviews','ShopReviewAdminController')->except(['create','store'])->names('admin.shop.reviews');
+            Route::resource('reviews','ShopReviewAdminController')->except(['create','store','show'])->names('admin.shop.reviews');
 
             //Корзинки пользователей
             Route::resource('carts','ShopCartAdminController')->only(['index'])->names('admin.shop.carts');

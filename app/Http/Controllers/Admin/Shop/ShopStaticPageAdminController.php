@@ -83,7 +83,7 @@ class ShopStaticPageAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StaticPageRequest $request, $id)
     {
         $page=StaticPage::findOrFail($id);
         $page->fill($request->all());

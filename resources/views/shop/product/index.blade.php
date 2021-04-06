@@ -8,7 +8,11 @@
 @endsection
 
 @section('title')
+   @if(!empty($breadcrumb)) 
     {{$breadcrumb[sizeof($breadcrumb)-1]->name}}
+   @else
+    {{__('products')}}
+   @endif
 @endsection
 
 @section('content')

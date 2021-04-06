@@ -32,20 +32,20 @@ class ShopProductAdminController extends Controller
      * Отображение списка товаров по id категории.
      * @return \Illuminate\Http\Response
      */
-    public function index($category_id=0)
-    {
-        $treeView=$this->categRepository->getNodeWithTreeAndChilds($category_id);
-        $breadcrumb=[];
-        foreach($treeView as $entity){
-            if($entity->tree==1){
-                $breadcrumb[]=$entity;
-            }
-        }
-        $products=ShopProduct::where('category_id',$category_id)->get();
-        return view('admin.shop.product.index',
-            compact('breadcrumb','products')
-        );
-    }
+    // public function index($category_id=0)
+    // {
+    //     $treeView=$this->categRepository->getNodeWithTreeAndChilds($category_id);
+    //     $breadcrumb=[];
+    //     foreach($treeView as $entity){
+    //         if($entity->tree==1){
+    //             $breadcrumb[]=$entity;
+    //         }
+    //     }
+    //     $products=ShopProduct::where('category_id',$category_id)->get();
+    //     return view('admin.shop.product.index',
+    //         compact('breadcrumb','products')
+    //     );
+    // }
 
 
     /**
@@ -124,8 +124,13 @@ class ShopProductAdminController extends Controller
      */
     public function edit($id)
     {
+
         //Объедини в будующем
         $product=ShopProduct::whereId($id)->with(['photos'])->first();
+        if(empty($product))
+        {
+            abort(404);
+        }
         $category=ShopCategory::findOrFail($product->category_id);
 
         $params=$this->repository->getProductDetailById($product->id,$product->category_id);
@@ -171,7 +176,7 @@ class ShopProductAdminController extends Controller
         $product=ShopProduct::findOrFail($id);
         if($product->delete())
         {
-            return redirect()->route('admin.shop.products.index',$product->category_id)->
+            return redirect()->route('admin.shop.categories.show',$product->category_id)->
             with(['success'=>'Товар успешно удален']);
         }
     }

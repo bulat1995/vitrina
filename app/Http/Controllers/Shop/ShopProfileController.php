@@ -78,6 +78,9 @@ class ShopProfileController extends Controller
                 $user->avatar=null;
                 $user->save();
             }
+            return redirect()->route('shop.profile.index')->with([
+                    'success'=>'Профиль успешно отредактирован'
+                ]);
         }
         return redirect()->back();
     }

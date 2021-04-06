@@ -34,10 +34,6 @@ class ShopReviewController extends Controller
      */
     public function index()
     {
-        if(auth()->guest())
-        {
-            abort(403);
-        }
         $reviews=$this->repository->getReviewsByUser(auth()->user()->id);
         return view('shop.review.index',compact('reviews'));
     }
@@ -52,10 +48,6 @@ class ShopReviewController extends Controller
      */
     public function store(ShopReviewCreateRequest $request)
     {
-        if(auth()->guest())
-        {
-            abort(403);
-        }
         $review=new Review($request->input());
         $review->user_id=auth()->user()->id;
         if($review->save())
@@ -77,10 +69,6 @@ class ShopReviewController extends Controller
      */
     public function edit($id)
     {
-        if(auth()->guest())
-        {
-            abort(403);
-        }
         $review=Review::findOrFail($id);
         if($review->user_id!=auth()->user()->id){
             abort(403);
@@ -131,10 +119,6 @@ class ShopReviewController extends Controller
      */
     public function destroy($id)
     {
-        if(auth()->guest())
-        {
-            abort(403);
-        }
         $review=Review::findOrFail($id);
         if($review->user_id!=auth()->user()->id){
             abort(403);

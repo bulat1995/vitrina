@@ -1,0 +1,209 @@
+{
+
+"language":"Language",
+"appearanceSite":"appearance",
+"controlPanel":"control Panel",
+"profile":"Profile",
+"findProduct":"Find goods ... ",
+"searchProduct":"product Search ",
+"finded":"Found items",
+"menu":"Menu",
+"news":"New",
+"from":"From",
+"to":"To",
+"avatar":"Avatar",
+"lastViewed":"recently viewed",
+
+"sortBy": "Sorting",
+"priceMin": "Cheap",
+"priceMax": "Expensive",
+"nameMin": "Name From A to Z",
+"nameMax": "Name From Z to A",
+
+"accept": "Apply",
+"reset": "Reset",
+"haveAQuestion": "Any questions",
+"emptyModule": "Section is empty",
+"lastReview": "Recent Reviews",
+"allReviews": "All reviews",
+"editingReviewBy": "Editing a review on",
+
+
+
+
+"goToSite": "Go to the site",
+"site": "Site",
+"search": "Site Search",
+"siteParameters": "Site Parameters",
+"shopSliders": "Slider",
+"seeAllMessages": "View all posts",
+
+"shop": "Shop",
+"products": "Products",
+"categories": "Categories",
+"shopParameters": "Product Parameters",
+"staticPages": "Static Pages",
+
+"systemAccess": "System access",
+"users": "Users",
+"allUsers": "All Users",
+"editProfile": "Profile Redating",
+"roles": "Roles",
+"permisssions": "Access keys",
+
+"category":"Category",
+"title":"Header",
+"showUntil":"Display until",
+"rating":"Rating",
+"describe":"Description",
+"image":"Image",
+"buttonText":"Text-button",
+"href":"Link",
+"blank":"Open link in new window",
+"show":"Show",
+"currentLogo":"Current image",
+
+
+
+
+"Register": "Registration",
+"Login": "Authorization",
+"logout": "Log Out",
+"profileEdit":"Edit Profile",
+
+"Remember Me": "Remember me",
+"Enter": "Log In",
+"Forgot Your Password?": "Forgot your password?",
+
+"Reset Password": "Reset Password",
+"Send Password Reset Link": "Send password reset link to email",
+
+
+"Nickname":"Nickname",
+"avatar":"Avatar",
+"firstName":"Name",
+"secondName":"last Name",
+"userProfile":"user Profile",
+"address":"Address",
+"birthday":"birthday",
+"firstname and secondName":"Name",
+"Email Address":"Email address",
+"Password":"Password",
+"Confirm Password": "Confirm Password",
+
+
+
+"categories": "Categories",
+"CategoryName": "Category name",
+"fileFormat": "File format",
+" rootCategory":"Root Category",
+"ParentCategory": "Parent category",
+"logo": "Logo",
+"publish": "Publish",
+"SoftDelete": "soft delete",
+"withDescedents": "with descendants",
+
+
+"roles": "Roles",
+"roleName": "Role name",
+"slugRole": "Role ID",
+
+"permissions": "Access keys",
+"permissionName": "Name of the access key",
+"permissionSlug": "Access key ID",
+"permissionActionName": "Controller action ID",
+
+
+"shopParameters":"the parameters of the goods",
+"parameterName":"parameter Name",
+"parameterType":"parameter Type",
+"parameterSlug":"the ID of the parameter",
+"parameterRequired":"Parameter is required",
+"parameterRating":"Rating parameter",
+"parameterValue":"parameter Value",
+"parameterRegular":"Regular expression to validate the parameter",
+
+
+"products": "Products",
+"product": "Product",
+"count": "Quantity",
+"estimate": "Rating",
+"addProduct": "New Product",
+"productParameters": "Product Parameters",
+"productsInCategory": "Products in category",
+"loadedImages": "Product Images",
+"deleteImage": "Delete image",
+"price": "Cost",
+
+"digit": "Number",
+"text": "Text",
+"date": "Date",
+"url": "Link",
+"option": "Select one from the list",
+"groups": "Select several from the list",
+
+
+"deleteUser": "Delete user",
+"user": "User",
+
+
+
+"message": "Message",
+"send message": "Write",
+"messages": "Messages",
+"sender": "Sender",
+"recipient": "Recipient",
+"history of messages is empty": "Message history is empty",
+"new messages": "New messages",
+
+
+"adding": "Adding",
+" created":" Created",
+" editing":" Edit",
+"edited": "Edited",
+"Deleting": "Delete",
+
+"users": "Users",
+
+"pages": "Pages",
+
+"pageTitle": "Page Title",
+"pageSlug": "Page ID",
+"pageRating": "Rating",
+" PageContent":"Page Content",
+"pageDescribe": "Page Description",
+"published": "published",
+"not published": "not published",
+"showInMenu": "Display in the menu",
+"showUser": "Show author",
+"commentable": "Ability to comment",
+"BotCanIndex": "Page indexing by bot",
+
+
+"edit":"Edit",
+"send": "Send",
+"add": "Add",
+"create": "Create",
+"delete": "Delete",
+
+"searchBy": "Search by query",
+"NotFound": "Nothing found",
+
+"name": "Name",
+"cart": "Cart",
+"in cart": "In cart",
+"quantity": "Quantity",
+"Total": "Total",
+"emptyCart": "There are no products in the cart",
+"delete from cart":"Remove from cart",
+"add to cart": "Add to cart",
+"coin": "&#8381;",
+
+"reviews": "Reviews",
+"review": "Review",
+"new review": "Make a review",
+"edit review": "Edit review",
+"emptyReview":"You did not write reviews",
+"unit is empty": "This section is still empty"
+
+}

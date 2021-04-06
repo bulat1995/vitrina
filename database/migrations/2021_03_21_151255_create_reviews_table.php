@@ -26,7 +26,7 @@ class CreateReviewsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             //Отзыв проверен
-            $table->boolean('checked');
+            $table->boolean('checked')->default(0);
             
             $table->index('product_id');
             $table->timestamps();

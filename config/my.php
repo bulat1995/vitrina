@@ -12,7 +12,7 @@ return array(
         //Список существуюих локализаций
         'language'=>array(
             'default'=>'ru',
-            'list'=>array('ru'=>'Русский','en'=>'English'),
+            'list'=>array('ru'=>'Русский','en'=>'English','it'=>'Italian'),
         ),
     ),
     //Категория

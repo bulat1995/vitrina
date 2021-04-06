@@ -19,10 +19,12 @@
                     <form method="POST" action="{{route('admin.pages.store')}}" enctype="multipart/form-data">
                     @endif
                     @csrf
+                    @if (isset($errors))
                     @if ($errors->any())
                         @foreach ($errors->all() as $error)
                             <div class="alert alert-danger">{{ $error }}</div>
                         @endforeach
+                    @endif
                     @endif
                     <div class="form-group">
                       <label for="title">{{__('pageTitle')}}</label>

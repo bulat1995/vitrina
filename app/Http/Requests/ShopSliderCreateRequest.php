@@ -31,7 +31,7 @@ class ShopSliderCreateRequest extends FormRequest
             'category'=>'',
             'title'=>'required|string',
             'describe'=>'required|string',
-            'image'=>'required|mimes:gif,png',
+            'image'=>'required|mimes:gif,png,jpg',
             'buttonText'=>'required|string',
             'href'=>'required',
             'blank'=>'boolean',

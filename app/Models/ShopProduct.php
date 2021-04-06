@@ -41,11 +41,14 @@ class ShopProduct extends Model
 
     public function setParametersAttribute($param)
     {
-        $this->parameters()->detach();
-        foreach($param as $charact=>$value){
-            $newCharacteristics[$charact]=['value'=>$value];
+        if(!empty($param)){
+            $this->parameters()->detach();
+            foreach($param as $charact=>$value){
+                $newCharacteristics[$charact]=['value'=>$value];
+            }
+            $this->parameters()->attach($newCharacteristics);
         }
-        $this->parameters()->attach($newCharacteristics);
+
     }
 
 

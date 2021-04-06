@@ -32,12 +32,14 @@
                     <form action="{{route('admin.shop.reviews.update',$review->id)}}" enctype="multipart/form-data" method="POST">
                         @method('PATCH')
                         @csrf
+                    @if(isset($errors))
                     @if ($errors->any())
                         @foreach ($errors->all() as $error)
                         <div class="alert alert-danger">
                             {{ $error }}
                         </div>
                         @endforeach
+                    @endif
                     @endif
                         <input type="hidden" name="estimate" value={{$review->estimate}}>
                         <div class="form-group">

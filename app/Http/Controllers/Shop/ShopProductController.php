@@ -52,7 +52,8 @@ class ShopProductController extends Controller
                 $breadcrumb[] = $entity;
             }
         }
-        $parameters = $this->paramRepository->getParametersOnlyHave($id);
+        $parameters = $this->categoryRepository->getParameters($id);
+       
         $products   = $this->searchRepository->searchByParameters($request->input(), $id);
 
         return view('shop.product.index', compact('breadcrumb', 'products', 'parameters'));

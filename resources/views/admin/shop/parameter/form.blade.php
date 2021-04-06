@@ -30,10 +30,12 @@
         <div class="col-md-9">
             <div class="chart-box">
                 <div class="card-body">
+                    @if(isset($errors))
                     @if ($errors->any())
                         @foreach ($errors->all() as $error)
                         <div class="alert alert-danger">{{ $error }}</div>
                         @endforeach
+                    @endif
                     @endif
                     <div class="form-group">
                       <label for="name">{{__('parameterName')}}:</label>

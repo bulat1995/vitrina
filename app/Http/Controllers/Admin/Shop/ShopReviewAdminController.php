@@ -15,11 +15,6 @@ use App\Http\Requests\ShopReviewUpdateRequest;
 class ShopReviewAdminController extends Controller
 {
 
-
-	public function __construct()
-	{
-
-	}
     
     /**
      * Вывод непроверенных отзывов

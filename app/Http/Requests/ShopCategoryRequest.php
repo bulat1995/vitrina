@@ -25,7 +25,7 @@ class ShopCategoryRequest extends FormRequest
     {
         return [
             'name'=>'required|min:2',
-            'parent_id'=>'required|min:0',
+            'parent_id'=>'required|min:0|exclude_if:parent_id,0|exists:shop_categories,id',
             'is_public'=>'boolean',
             'parameters'=>'exists:shop_parameters,id',
             'logo'=>'image|mimes:jpeg,png,gif,jpg,bmp|max:4096'

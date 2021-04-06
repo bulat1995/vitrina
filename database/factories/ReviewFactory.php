@@ -23,8 +23,12 @@ class ReviewFactory extends Factory
     {
         return [
             'review'=>$this->faker->sentences(18,25),
-            'user_id'=>rand(1,3),
-            'product_id'=>rand(1,2),
+            'user_id'=>function(){
+                return \App\Models\User::factory()->create()->id;
+            },
+            'product_id'=>function(){
+                return \App\Models\ShopProduct::factory()->create()->id;
+            },
             'checked'=>rand(0,1),
             'estimate'=>rand(1,5),
         ];

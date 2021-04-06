@@ -1,0 +1,209 @@
+{
+
+"language": "Language",
+"appearanceSite": "aspetto del sito",
+"controlPanel": "Pannello di controllo",
+"profile": "Profilo",
+"findProduct": "trova un prodotto ... ",
+"searchProduct": "ricerca prodotto ",
+"finded": "prodotti trovati",
+"menu": "Menu",
+"news": "Nuovo",
+"from": "Da",
+"A": "A",
+"avatar": "Avatar",
+"lastViewed": "visti di recente",
+
+"sortBy": "ordinamento",
+"priceMin": "economici",
+"priceMax": "cari",
+"nameMin": "nome dalla A alla Z",
+"nameMax": "nome da Z A A",
+
+"accept": "applica",
+"reset": "Reset",
+"haveAQuestion": "ci sono domande",
+"emptyModule": "la partizione è vuota",
+"lastReview": "Recensioni Recenti",
+"allReviews": "tutte le recensioni",
+"editingReviewBy": "modifica di una recensione su",
+
+
+
+
+"goToSite": "visita il sito",
+"site": "sito",
+"search": "Cerca nel sito",
+"siteParameters": "Impostazioni sito",
+"shopSliders": "cursore",
+"seeAllMessages": "Visualizza tutti i messaggi",
+
+"shop": "Negozio",
+"products": "Prodotti",
+"categories": "categorie",
+"shopParameters": "parametri del prodotto",
+"staticPages": "pagine statiche",
+
+"systemAccess": "accesso al sistema",
+"users": "utenti",
+"allUsers": "tutti gli utenti",
+"editProfile": "Modifica Profilo",
+"roles": "ruoli",
+"permissions": "chiavi di accesso",
+
+"category": "Categoria",
+"title": "Titolo",
+"showUntil": "visualizza fino a",
+"rating": "valutazione",
+"describe": "Descrizione",
+"image": "Immagine",
+"buttonText": "testo sul pulsante",
+"href": "collegamento di Transizione",
+"blank": "apri il link in una nuova finestra",
+"show": "Mostra",
+"currentLogo": "immagine corrente",
+
+
+
+
+"Register": "Registrazione",
+"Login": "Autorizzazione",
+"logout": "Esci",
+"profileEdit": "Modifica Profilo",
+
+"Remember Me": "Ricordami",
+"Enter": "Accedi",
+"Forgot Your Password?": "Hai dimenticato la password?",
+
+"Reset Password": "reimpostare la password",
+"Send Password Reset Link": "Invia il link di reimpostazione password all'email",
+
+
+"Nickname": "Nickname",
+"avatar": "Avatar",
+"firstName": "nome",
+"secondName": "cognome",
+"userProfile": "profilo utente",
+"address": "indirizzo",
+"birthday": "compleanno",
+"firstname and secondName": "nome e cognome",
+"Indirizzo E-Mail":"Indirizzo E-Mail",
+"Password": "Password",
+"Confirm Password": "Conferma password",
+
+
+
+"categories": "categorie",
+"categoryName": "nome categoria",
+"fileFormat": "formato file",
+"rootCategory": "categoria radice",
+"parentCategory": "categoria padre",
+"logo": "Logo",
+"publish": "pubblica",
+"softDelete": "cancellazione soft",
+"withDescedents": "con i discendenti",
+
+
+"roles": "ruoli",
+"roleName": "Nome Ruolo",
+"slugRole": "ID ruolo",
+
+"permissions": "chiavi di accesso",
+"permissionName": "nome della chiave di accesso",
+"permissionSlug": "ID chiave di accesso",
+"permissionActionName": "ID azione controller",
+
+
+"shopParameters": "parametri del prodotto",
+"parameterName": "nome del parametro",
+"parameterType": "tipo di parametro",
+"parameterSlug": "ID parametro",
+"parameterRequired": "il parametro è obbligatorio",
+"parameterRating": "Valutazione dei parametri",
+"parameterValue": "valore del parametro",
+"parameterRegular": "Espressione regolare per la convalida dei parametri",
+
+
+"products": "Prodotti",
+"product": "prodotto",
+"count": "quantità",
+"estimate": "valutazione",
+"addProduct": "nuovo prodotto",
+"productParameters": "parametri del prodotto",
+"productsInCategory": "prodotti nella categoria",
+"loadedImages": "immagini del prodotto",
+"deleteImage": "Elimina immagine",
+"price": "costo",
+
+"digit": "numero",
+"text": "testo",
+"date": "Data",
+"url": "Link",
+"option": "seleziona uno dall'elenco",
+"groups": "selezione di più dall'elenco",
+
+
+"deleteUser": "Elimina utente",
+"user": "Utente",
+
+
+
+"message": "Messaggio",
+"send message": "Scrivi",
+"messages": "Messaggi",
+"sender": "Mittente",
+"receient": "destinatario",
+"history of messages is empty": "la cronologia dei messaggi è vuota",
+"new messages": "nuovi messaggi",
+
+
+"adding": "aggiunta",
+"created": "creato",
+"editing": "modifica",
+"edited": "modificato",
+"Deleting": "Elimina",
+
+"users": "utenti",
+
+"pages": "Pagine",
+
+"pageTitle": "titolo della pagina",
+"pageSlug": "id pagina",
+"pageRating": "valutazione",
+"pageContent": "Contenuto della pagina",
+"pageDescribe": "descrizione della pagina",
+"published": "pubblicato",
+"not published": "non pubblicato",
+"showInMenu": "Visualizza nel menu",
+"showUser": "mostra autore",
+"commentable": "possibilità di commentare",
+"BotCanIndex": "indicizzazione di una pagina da un bot",
+
+
+"edit": "Modifica",
+"send": "invia",
+"add": "Aggiungi",
+"create": "crea",
+"delete": "Elimina",
+
+"searchBy": "ricerca su richiesta",
+"notFound": "non trovato nulla",
+
+"name": "Nome",
+"cart": "Carrello",
+"in cart": "nel carrello",
+"quantity": "quantità",
+"Total": "Totale",
+"emptyCart": "non ci sono articoli nel carrello",
+"delete from cart": "Elimina dal carrello",
+"add to cart": "Aggiungi al carrello",
+"coin":"&#8381;",
+
+"reviews": "recensioni",
+"review": "recensione",
+"new review": "Scrivi una recensione",
+"edit review": "modifica recensione",
+"emptyReview": "non hai scritto recensioni",
+"unit is empty": "questa sezione è ancora vuota"
+
+}

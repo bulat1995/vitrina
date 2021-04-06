@@ -30,11 +30,13 @@
                             <form method="POST" action="{{route('admin.shop.products.store',$product->category_id)}}" enctype="multipart/form-data">
                             @endif
                             @csrf
+                @if(isset($errors))
                     @if ($errors->any())
                         @foreach ($errors->all() as $error)
                             <div class="alert alert-danger">{{ $error }}</div>
                         @endforeach
                     @endif
+                @endif
                     <div class="form-group">
                       <label for="name">{{__('productName')}}:</label>
                       <input type="text" class="form-control" id="name"  placeholder="Philips s308" name="name" value="{{old('name',$product->name)}}">

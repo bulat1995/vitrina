@@ -163,6 +163,7 @@ class ShopCategoryAdminController extends Controller
         $data=$request->all();
         $item=$this->repository->getNodeById($id);
         $item->fill($data)->save();
+
         $item->parameters=$request->input('parameters');
         if($item)
         {

@@ -16,7 +16,7 @@ class StaticPage extends Model
             'describe',
             'rating',
             'in_menu',
-            'user_show',
+            'show_user',
             'can_comment',
             'can_index',
             'category',

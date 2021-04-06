@@ -61,7 +61,7 @@ class ProfileAdminController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user,$id)
+    public function edit($id)
     {
         $user=User::findOrFail($id);
         $roles=$this->roleRepository->getRolesWithMarks($user->id);
@@ -102,7 +102,7 @@ class ProfileAdminController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user,$id)
+    public function destroy($id)
     {
         $user=User::findOrFail($id);
         if($user->delete())
