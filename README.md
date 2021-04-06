@@ -7,7 +7,10 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Интернет витрина разработанная на  Laravel
+## Интернет-витрина разработанная на  Laravel
+<p>Адрес http://p965656e.beget.tech/</p>
+<p>Логин: hello@hello.com</p>
+<p>Пароль: admin347</p>
 
 --
 ### Что внутри:
