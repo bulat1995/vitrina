@@ -163,7 +163,7 @@ class ShopProductParameterRule implements Rule
         if(\preg_match("/([0-9]{4}-[0-9]{2}-[0-9]{2})/i",$dateString))
         {
             $dateString=explode('-',$dateString);
-            if(checkdate($date[1],$date[2],$date[0])){
+            if(checkdate($dateString[1],$dateString[2],$dateString[0])){
                 $this->errorMessagePoint=2;
                 $status=true;
             }

@@ -19,9 +19,11 @@ class UserSeeder extends Seeder
     {
         $adminPanel = Role::where('slug','adminPanel')->first();
         $user1 = new User();
-        $user1->name = 'bulat1995';
-        $user1->email = 'bulat1995@hello.com';
-        $user1->password = bcrypt('123456');
+        $user1->name = 'admin';
+        $user1->firstName = 'FirstName';
+        $user1->secondName = 'SecondName';
+        $user1->email = 'hello@hello.com';
+        $user1->password = bcrypt('admin347');
         $user1->save();
         $user1->roles()->attach($adminPanel);
 

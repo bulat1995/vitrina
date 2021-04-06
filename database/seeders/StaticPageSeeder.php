@@ -18,13 +18,15 @@ class StaticPageSeeder extends Seeder
      */
     public function run()
     {
+        $faker = $this->withFaker();
+
         $user=User::whereId(1)->first();
 
         $about=new StaticPage();
-        $about->title='О компании';
+        $about->title='Простая страница';
         $about->slug='about1';
-        $about->content='Описание компании';
-        $about->describe='Описание компании';
+        $about->content='Lorem Ipsum';
+        $about->describe='Lorem Ipsum';
         $about->in_menu=true;
         $about->user_id=$user->id;
         $about->save();
@@ -32,8 +34,8 @@ class StaticPageSeeder extends Seeder
         $notShow=new StaticPage();
         $notShow->title='Простая страница';
         $notShow->slug='notout';
-        $notShow->content='Не отображается Описание компании';
-        $notShow->describe='Описание компании';
+        $notShow->content='Lorem Ipsum';
+        $notShow->describe='Lorem Ipsum';
         $notShow->user_id=$user->id;
         $notShow->in_menu=false;
         $notShow->save();

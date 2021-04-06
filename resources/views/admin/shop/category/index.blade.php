@@ -84,7 +84,7 @@
                 </font>
             </div>
             <div class="col-md-4">
-                <a href="{{ route('admin.shop.products.create',$parent_id??1) }}">
+                <a href="{{ route('admin.shop.products.create',$item->id??1) }}">
                     <button type="button" class="btn btn-primary pull-right mr-3">{{__('addProduct')}}</button>
                 </a>
             </div>

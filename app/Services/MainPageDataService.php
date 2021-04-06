@@ -42,7 +42,7 @@ class MainPageDataService
     {
         if(empty($this->lastNews))
         {
-            $this->lastNews=StaticPage::orderBy('created_at','DESC')->
+            $this->lastNews=StaticPage::where('in_menu',true)->orderBy('created_at','DESC')->
             limit(5)->
             toBase()->
             get();

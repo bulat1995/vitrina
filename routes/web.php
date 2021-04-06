@@ -136,6 +136,6 @@ Route::group(['middleware'=>['language'],'prefix'=>'/'],function(){
         if(array_key_exists($id,config('my.global.language.list'))){
             session(['user_language'=>$id]);
         }
-        return redirect()->route('shop');
+        return redirect()->back();
     })->name('language');
 });

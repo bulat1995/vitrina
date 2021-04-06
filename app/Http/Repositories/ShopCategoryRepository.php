@@ -154,7 +154,7 @@ class ShopCategoryRepository extends CoreRepository
             'shop_parameters.inputType',
             'shop_parameters.regular',
             'shop_parameters.required',
-            'rating',
+            //'rating',
             \DB::raw('null as value')
         ];
 
@@ -169,7 +169,6 @@ class ShopCategoryRepository extends CoreRepository
 
         ->where('shop_categories.id',$category_id)
         ->toBase()
-        ->orderBy('rating ','ASC')
         ->get();
         return $result;
     }

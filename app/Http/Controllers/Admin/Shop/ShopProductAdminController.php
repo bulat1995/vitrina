@@ -74,6 +74,7 @@ class ShopProductAdminController extends Controller
     {
         $category=ShopCategory::findOrFail($category_id);
         $data=$request->all();
+        //dd($data);
         unset($data['parameters']);
         $product=new ShopProduct($data);
         $product->category_id=$category_id;

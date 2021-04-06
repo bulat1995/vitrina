@@ -30,7 +30,7 @@
                                   <h5 class="card-title"><a href="{{ route('admin.pages.show',$page->id) }}">{{ $page->title}}</a></h5>
                               </td>
                               <td>
-                                  @if(empty($page->datePublished))
+                                  @if(empty($page->in_menu))
                                       {{ __('not published') }}
                                   @else
                                         {{ __('published') }}

@@ -22,12 +22,12 @@ class StaticPageFactory extends Factory
     public function definition()
     {
         return [
-            'slug'=>$this->faker->word,
+            'slug'=>$this->faker->word(),
             'title'=>$this->faker->sentence(1,3),
             'describe'=>$this->faker->sentence(20,100),
             'content'=>$this->faker->sentence(200,1000),
             'rating'=>rand(10,100),
-            'in_menu'=>rand(0,1),
+            'in_menu'=>(bool)rand(0,1),
             'user_id'=>function(){
                 return \App\Models\User::factory()->create()->id;
             },

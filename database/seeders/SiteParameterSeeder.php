@@ -16,10 +16,10 @@ class SiteParameterSeeder extends Seeder
     public function run()
     {
         $params=array(
-            array('name'=>'email','slug'=>'email','value'=>'email'),
-            array('name'=>'phoneNumber','slug'=>'phoneNumber','value'=>'phoneNumber'),
-            array('name'=>'address','slug'=>'address','value'=>'address'),
-            array('name'=>'social','slug'=>'social','value'=>'social'),
+            array('name'=>'email','slug'=>'email','value'=>'тут должен быть email'),
+            array('name'=>'phoneNumber','slug'=>'phoneNumber','value'=>'Номер телефона'),
+            array('name'=>'address','slug'=>'address','value'=>'тут должен быть адрес'),
+            array('name'=>'social','slug'=>'social','value'=>'Ссылки на социальные сети'),
 
         );
         foreach($params as $par)

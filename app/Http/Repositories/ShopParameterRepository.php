@@ -25,15 +25,19 @@ class ShopParameterRepository extends CoreRepository
     */
     public function getParametersWithMarks($category_id=0)
     {
-        $columns=['shop_parameters.id','shop_parameters.name',\DB::raw("shop_categories.id=$category_id as has")];
+        $columns=['shop_parameters.id','shop_parameters.name',\DB::raw("shop_category_shop_parameter.category_id=$category_id as has")];
         $result=$this->startConditions()
         ->select($columns)
-            ->leftJoin('shop_category_shop_parameter',function($join){
+
+            ->leftJoin('shop_category_shop_parameter',function($join) use($category_id){
                 $join->on('shop_parameters.id','=','shop_category_shop_parameter.parameter_id');
+                $join->where('shop_category_shop_parameter.category_id',$category_id);
             })->
-            leftJoin('shop_categories',function($join)use ($category_id){
+
+            leftJoin('shop_categories',function($join) use($category_id){
                 $join->on('shop_categories.id','=','shop_category_shop_parameter.category_id');
             })
+
             //->where('shop_categories.id','=',$category_id)
             ->groupBy('shop_parameters.id')
             ->toBase()

@@ -148,6 +148,8 @@ class ShopCategoryAdminController extends Controller
             abort(404);
         }
         $params=$this->paramRepository->getParametersWithMarks($parent_id);
+
+       // dd($item,$params);
         return view('admin.shop.category.form',compact('item','categories','breadcrumb','parent_id','params'));
     }
 
@@ -162,9 +164,10 @@ class ShopCategoryAdminController extends Controller
     {
         $data=$request->all();
         $item=$this->repository->getNodeById($id);
-        $item->fill($data)->save();
-
+        $item->fill($data)->touch();
         $item->parameters=$request->input('parameters');
+        $item->save();
+
         if($item)
         {
             return redirect()

@@ -17,9 +17,9 @@
         @foreach($parameters as $param)
             @if($param->inputType == 'text') @continue @endif
                 <div class="sidebar_section">
-                    <div class="sidebar_subtitle brands_subtitle">{{ $param->name }}</div>
                     @switch($param->inputType)
                         @case('option')
+                            <div class="sidebar_subtitle brands_subtitle">{{ $param->name }}</div>
                             @foreach(explode('|',$param->regular) as $elem=>$value)
                             <div class="filter-check-box">
                                 <input type="radio" name="val-{{ $param->id }}" value="{{ $elem }}" id="{{ $param->id }}{{ $elem }}"   @if(null!==(request()->input('val-'.$param->id)) && ($elem==request()->input('val-'.$param->id)))  checked @endif >
@@ -36,6 +36,7 @@
                             @endforeach
                         @break
                         @case('digit')
+                            <div class="sidebar_subtitle brands_subtitle">{{ $param->name }}</div>
                             @foreach(explode('|',$param->regular) as $elem)
                             <div class="filter-input-box">
                                 <div class="row">
